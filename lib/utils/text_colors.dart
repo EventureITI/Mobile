@@ -9,3 +9,4 @@ final Color hintColor = Color(0xFF848484);
 final Color iconColor = Color(0xFF858585);
 final Color navBgItem = Color(0xFF292929);
 final Color selectedNav = Color(0xFF4FDFD1);
+final Color unSelectednav = Color(0xFF848484);
