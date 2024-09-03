@@ -1,5 +1,4 @@
 import 'package:eventure/screens/home_screen.dart';
-import 'package:eventure/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
         // home: PaymentSuccessScreen(),
         // home: FailScreen(),
         // home: GetTicketScreen(),
-        home: LoginScreen());
+        // home: LoginScreen());
+        home: HomeScreen());
   }
 }

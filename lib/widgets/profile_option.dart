@@ -1,15 +1,26 @@
+import 'package:eventure/screens/login_screen.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileOption extends StatelessWidget {
+  Widget nextScreen;
   String? optionIcon;
   String? optionText;
-  ProfileOption({super.key,required this.optionIcon,required this.optionText});
+  ProfileOption({super.key,required this.optionIcon,required this.optionText, required this.nextScreen});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: (){
+        Navigator.push<void>(
+          context,
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) => nextScreen,
+          ),
+        );
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),
         margin: EdgeInsets.symmetric(vertical: 16),

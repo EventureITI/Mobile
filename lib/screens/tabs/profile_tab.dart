@@ -1,3 +1,4 @@
+import 'package:eventure/screens/tickets_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/profile_option.dart';
@@ -27,16 +28,16 @@ class ProfileTab extends StatelessWidget {
             SizedBox(height: 16,),
             CustomText(text: "User Name", color: Colors.white, size: 25,),
             SizedBox(height: 32,),
-            ProfileOption(optionIcon: "assets/icons/ticketProf.svg", optionText: "Your Tickets",),
+            ProfileOption(optionIcon: "assets/icons/ticketProf.svg", optionText: "Your Tickets",nextScreen: TicketsScreen()),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
               width: MediaQuery.of(context).size.width ,
               height: 1,
               color: inpBg,
             ),
-            ProfileOption(optionIcon: "assets/icons/acc.svg", optionText: "Edit Profile",),
-            ProfileOption(optionIcon: "assets/icons/contact.svg", optionText: "Contact Us",),
-            ProfileOption(optionIcon: "assets/icons/logout.svg", optionText: "Log Out",),
+            ProfileOption(optionIcon: "assets/icons/acc.svg", optionText: "Edit Profile",nextScreen: TicketsScreen()),
+            ProfileOption(optionIcon: "assets/icons/contact.svg", optionText: "Contact Us",nextScreen: TicketsScreen()),
+            ProfileOption(optionIcon: "assets/icons/logout.svg", optionText: "Log Out",nextScreen: TicketsScreen()),
  
 
           ],

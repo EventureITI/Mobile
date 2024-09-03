@@ -9,6 +9,7 @@ class EventContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.all(8),
       height: 90,
       width: MediaQuery.of(context).size.width,
