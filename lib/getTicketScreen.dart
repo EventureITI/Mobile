@@ -39,8 +39,8 @@ class GetTicketScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Color(0xFF292929), // Background color
-                borderRadius: BorderRadius.circular(16), // Border radius
+                color: Color(0xFF292929),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +50,7 @@ class GetTicketScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: Colors.white, // Text color for contrast
+                      color: Colors.white,
                     ),
                   ),
                   Text(
@@ -58,7 +58,7 @@ class GetTicketScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF858585), // Text color for contrast
+                      color: Color(0xFF858585),
                     ),
                   ),
                   Text(
@@ -66,7 +66,7 @@ class GetTicketScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF858585), // Text color for contrast
+                      color: Color(0xFF858585),
                     ),
                   ),
                   SizedBox(height: 16),
@@ -78,7 +78,7 @@ class GetTicketScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white, // Text color for contrast
+                          color: Colors.white,
                         ),
                       ),
                       Row(
@@ -94,7 +94,7 @@ class GetTicketScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white, // Text color for contrast
+                              color: Colors.white,
                             ),
                           ),
                           SizedBox(width: 4),
@@ -120,57 +120,82 @@ class GetTicketScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Container(
-              color: Color(0xFF292929),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Color(0xFF292929), // Background color
+                borderRadius: BorderRadius.circular(16), // Border radius
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Total price\n600.00 EGP",
+                    "Stripe",
                     style: TextStyle(
-                      color: Colors.white, // Text color to match the design
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white, // Text color for contrast
                     ),
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Color(0xFF4FE0D2), // Background color
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 8), // Padding inside the button
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(16), // Rounded corners
-                      ),
-                    ),
-                    onPressed: () {
-                      // Handle button press
-                    },
-                    child: Row(
-                      mainAxisSize:
-                          MainAxisSize.min, // To keep the button size compact
-                      children: [
-                        SvgPicture.asset(
-                          "assets/Icon-pain.svg",
-                          width: 16,
-                          height: 16,
-                        ),
-                        SizedBox(width: 8), // Space between icon and text
-                        Text(
-                          "Pay Now",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white, // Text color
-                          ),
-                        ),
-                      ],
+                  SizedBox(
+                    width: 20,
+                  ),
+                  SvgPicture.asset(
+                    "assets/fa6-brands_stripe-s.svg",
+                    width: 24,
+                    height: 24,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        color: Color(0xFF292929),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Total price\n600.00 EGP",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Color(0xFF4FE0D2),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              onPressed: () {
+                // Handle button press
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    "assets/Icon-pain.svg",
+                    width: 16,
+                    height: 16,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    "Pay Now",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white, // Text color
                     ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
