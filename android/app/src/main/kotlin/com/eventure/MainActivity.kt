@@ -1,4 +1,4 @@
-package com.example.eventure
+package com.eventure
 
 import io.flutter.embedding.android.FlutterActivity
 
