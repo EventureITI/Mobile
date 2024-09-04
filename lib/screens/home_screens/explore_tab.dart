@@ -93,7 +93,7 @@ class _ExploreTabState extends State<ExploreTab> {
                     child: Column(
                       children: [
                         CarouselItem(
-                          contHeight: 265,
+                          contHeight: 300,
                           marginBtm: 8,
                           pic: "assets/images/events/kinglear.jfif",
                           eventCategory: "Drama",
@@ -105,7 +105,7 @@ class _ExploreTabState extends State<ExploreTab> {
                         ),
                         // SizedBox(height: 8,),
                         CarouselItem(
-                          contHeight: 265,
+                          contHeight: 300,
                           marginBtm: 8,
                           pic: "assets/images/events/omar_elgamal.jfif",
                           eventCategory: "Comedy",
@@ -117,7 +117,7 @@ class _ExploreTabState extends State<ExploreTab> {
                         ),
                         // SizedBox(height: 8,),
                         CarouselItem(
-                          contHeight: 265,
+                          contHeight: 300,
                           marginBtm: 8,
                           pic: "assets/images/events/memo.png",
                           eventCategory: "Comedy",
@@ -129,7 +129,7 @@ class _ExploreTabState extends State<ExploreTab> {
                         ),
                         // SizedBox(height: 8,),
                         CarouselItem(
-                          contHeight: 265,
+                          contHeight: 300,
                           marginBtm: 8,
                           pic: "assets/images/events/kinglear.jfif",
                           eventCategory: "Drama",
