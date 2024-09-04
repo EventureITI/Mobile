@@ -47,13 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           CustomText(
-                            text: "Create New",
-                            color: titleColor,
-                            size: 32,
-                            ftWeight: FontWeight.w600,
-                          ),
-                          CustomText(
-                            text: "Account",
+                            text: "New Account",
                             color: titleColor,
                             size: 32,
                             ftWeight: FontWeight.w600,
