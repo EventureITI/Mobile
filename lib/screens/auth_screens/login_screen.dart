@@ -13,10 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   bool _obscureText = true;
 
-  void togglePwVisiblity(){
+  void togglePwVisiblity() {
     setState(() {
       _obscureText = !_obscureText;
       // print(_obscureText);
@@ -26,14 +25,14 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
+        body: SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
             padding: EdgeInsets.all(24),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             color: bgColor,
-            child: Column( 
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround, // TODO: UX died
               children: <Widget>[
                 CustomText(
@@ -42,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   size: 32,
                   ftWeight: FontWeight.w600,
                 ),
-          
                 Column(
                   children: <Widget>[
                     CustomInputfield(
@@ -51,56 +49,50 @@ class _LoginScreenState extends State<LoginScreen> {
                       scure: false,
                       inpType: TextInputType.emailAddress,
                     ),
-          
                     SizedBox(height: 24),
-          
                     Column(
                       children: <Widget>[
                         CustomInputfield(
-                          hint:"Enter your password" ,
+                          hint: "Enter your password",
                           label: "Password",
                           scure: _obscureText,
                           suffixIcn: IconButton(
-                              icon: Icon(_obscureText? Icons.visibility_off : Icons.visibility),
-                              onPressed: (){
-                                  togglePwVisiblity();
-                              },
-                              color: iconColor,
-                            ),
+                            icon: Icon(_obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                            onPressed: () {
+                              togglePwVisiblity();
+                            },
+                            color: iconColor,
+                          ),
                         ),
-                    
                         Container(
                           width: MediaQuery.of(context).size.width,
                           alignment: AlignmentDirectional.centerEnd,
                           child: TextButton(
-                            onPressed: (){},
-                            child: CustomText(
-                              text: "Forgot password?"
-                            ),
+                            onPressed: () {},
+                            child: CustomText(text: "Forgot password?"),
                           ),
                         )
                       ],
                     ),
-          
                     SizedBox(height: 24),
-          
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 48,
                       child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.pushReplacement(context,
-                           MaterialPageRoute<void>(
-                              builder: (BuildContext context) => const HomeScreen(),
-                            )
-                          );
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    const HomeScreen(),
+                              ));
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: btnColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)
-                          )
-                        ),
+                            backgroundColor: btnColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15))),
                         child: CustomText(
                           text: "Sign In",
                           color: Colors.white,
@@ -108,12 +100,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-          
                   ],
                 ),
-          
-                SizedBox(height: MediaQuery.of(context).size.height/5),
-          
+                SizedBox(height: MediaQuery.of(context).size.height / 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -122,28 +111,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                       size: 14,
                     ),
-          
                     TextButton(
-                      onPressed: (){
-                        Navigator.pushReplacement(context,
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>  SignupScreen(),
+                            builder: (BuildContext context) => SignupScreen(),
                           ),
                         );
-                      }, 
+                      },
                       child: CustomText(
-                      text: "Sign Up",
-                      color: btnTextClr,
-                      size: 14,
-                    ),
+                        text: "Sign Up",
+                        color: btnTextClr,
+                        size: 14,
+                      ),
                     )
                   ],
                 ),
               ],
-            )
-          ),
-        ),
-      )
-    );
+            )),
+      ),
+    ));
   }
 }
