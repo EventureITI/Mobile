@@ -3,8 +3,8 @@ import 'package:eventure/screens/onboarding_screens/onboarding_screen_2.dart';
 import 'package:eventure/screens/onboarding_screens/onboarding_screen_3.dart';
 import 'package:flutter/material.dart';
 
-class OnboardingPageView extends StatelessWidget {
-  const OnboardingPageView({super.key});
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

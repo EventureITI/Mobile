@@ -1,4 +1,5 @@
 import 'package:eventure/screens/auth_screens/login_screen.dart';
+import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_input_field.dart';
 import 'package:eventure/widgets/custom_text.dart';
@@ -132,7 +133,15 @@ class _SignupScreenState extends State<SignupScreen> {
                             width: MediaQuery.of(context).size.width,
                             height: 48,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        HomeScreen(),
+                                  ),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: btnColor,
                                   shape: RoundedRectangleBorder(

@@ -1,4 +1,4 @@
-import 'package:eventure/widgets/onboarding_pageview.dart';
+import 'package:eventure/screens/onboarding_screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,6 +14,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Eventure',
         theme: ThemeData.dark(),
-        home: OnboardingPageView());
+        home: OnboardingScreen());
   }
 }

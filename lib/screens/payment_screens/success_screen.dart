@@ -1,3 +1,4 @@
+import 'package:eventure/screens/payment_screens/fail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,7 +8,7 @@ class PaymentSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF151515),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -48,7 +49,13 @@ class PaymentSuccessScreen extends StatelessWidget {
                     height: 48,
                     child: TextButton(
                       onPressed: () {
-                        ///
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                PaymentFailScreen(),
+                          ),
+                        );
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color(0xFF4FE0D2),
@@ -76,7 +83,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                     height: 48,
                     child: TextButton(
                       onPressed: () {
-                        ///
+                        //! TODO
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color(0x801F1F1F),

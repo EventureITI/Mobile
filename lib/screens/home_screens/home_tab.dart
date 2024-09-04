@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eventure/screens/auth_screens/login_screen.dart';
+import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
@@ -34,7 +36,14 @@ class _HomeTabState extends State<HomeTab> {
                       "assets/icons/avatar_placeholder.svg",
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => LoginScreen(),
+                            ),
+                          );
+                        },
                         child: CustomText(
                           text: "Login",
                           color: Colors.white,
@@ -46,68 +55,78 @@ class _HomeTabState extends State<HomeTab> {
               // banner
               Flexible(
                   flex: 3,
-                  child: Container(
-                      padding: EdgeInsets.only(top: 24),
-                      color: bgColor,
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 224,
-                            decoration: BoxDecoration(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => EventScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                        padding: EdgeInsets.only(top: 24),
+                        color: bgColor,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 224,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/events/omar_elgamal.jfif"),
+                                      fit: BoxFit.cover)),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width,
+                              height: 224,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/events/omar_elgamal.jfif"),
-                                    fit: BoxFit.cover)),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(8),
-                            width: MediaQuery.of(context).size.width,
-                            height: 224,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: LinearGradient(
-                                begin: Alignment(-0.02, 2.00),
-                                end: Alignment(0.02, -1),
-                                colors: [
-                                  Colors.black,
-                                  Colors.black.withOpacity(0.800000011920929),
-                                  Color(0x000D0C0F)
+                                gradient: LinearGradient(
+                                  begin: Alignment(-0.02, 2.00),
+                                  end: Alignment(0.02, -1),
+                                  colors: [
+                                    Colors.black,
+                                    Colors.black.withOpacity(0.800000011920929),
+                                    Color(0x000D0C0F)
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Color(0x33C9C9C9),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: CustomText(
+                                      text: "Comedy",
+                                      size: 10,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  CustomText(
+                                    text: "Ain Gamal",
+                                    color: Colors.white,
+                                  ),
+                                  CustomText(
+                                    text: "Omar El Gamal • Ahmed Amin",
+                                  ),
                                 ],
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: Color(0x33C9C9C9),
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: CustomText(
-                                    text: "Comedy",
-                                    size: 10,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 8,
-                                ),
-                                CustomText(
-                                  text: "Ain Gamal",
-                                  color: Colors.white,
-                                ),
-                                CustomText(
-                                  text: "Omar El Gamal • Ahmed Amin",
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ))),
+                          ],
+                        )),
+                  )),
 
               //upcoming events
               Flexible(

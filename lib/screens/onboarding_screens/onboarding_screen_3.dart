@@ -1,3 +1,4 @@
+import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen3 extends StatelessWidget {
@@ -34,7 +35,7 @@ class OnboardingScreen3 extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  'Seamless Booking Experience',
+                  'Start Your Eventure Now!',
                   style: TextStyle(
                     fontSize: 32,
                     height: 1,
@@ -44,7 +45,7 @@ class OnboardingScreen3 extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Book tickets with ease and manage your bookings all in one place.',
+                  'Dive into the excitement. Your next great experience is waiting.',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white,
@@ -57,9 +58,11 @@ class OnboardingScreen3 extends StatelessWidget {
                   height: 48,
                   child: TextButton(
                     onPressed: () {
-                      pageController.nextPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => HomeScreen(),
+                        ),
                       );
                     },
                     style: TextButton.styleFrom(
@@ -69,7 +72,7 @@ class OnboardingScreen3 extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'NEXT',
+                      'Get Started',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

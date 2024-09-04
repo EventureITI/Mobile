@@ -1,3 +1,4 @@
+import 'package:eventure/screens/profile_screens/profile_tab.dart';
 import 'package:eventure/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,12 @@ class ContactScreen extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              // the back button
+              Navigator.pop(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => ProfileTab(),
+                ),
+              );
             },
           ),
         ),

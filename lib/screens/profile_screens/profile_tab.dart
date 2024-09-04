@@ -1,3 +1,4 @@
+import 'package:eventure/screens/contact_screen.dart';
 import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
@@ -59,7 +60,7 @@ class ProfileTab extends StatelessWidget {
             ProfileOption(
                 optionIcon: "assets/icons/contact.svg",
                 optionText: "Contact Us",
-                nextScreen: UserTicketsScreen()),
+                nextScreen: ContactScreen()),
             ProfileOption(
                 optionIcon: "assets/icons/logout.svg",
                 optionText: "Log Out",

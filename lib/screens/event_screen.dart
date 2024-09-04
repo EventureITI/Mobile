@@ -1,8 +1,10 @@
+import 'package:eventure/screens/home_screens/home_screen.dart';
+import 'package:eventure/screens/payment_screens/get_tickets_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class EventDetails extends StatelessWidget {
-  const EventDetails({super.key});
+class EventScreen extends StatelessWidget {
+  const EventScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class EventDetails extends StatelessWidget {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 320,
-                  color: Colors.black.withOpacity(0.25),
+                  color: Colors.black.withOpacity(0.4),
                 ),
                 Container(
                   padding: EdgeInsets.all(16),
@@ -53,6 +55,21 @@ class EventDetails extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                     ),
+                  ),
+                ),
+                Positioned(
+                  left: 16,
+                  top: 36,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => HomeScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
@@ -175,12 +192,22 @@ class EventDetails extends StatelessWidget {
                     height: 16,
                   ),
                   SizedBox(width: 8),
-                  Text(
-                    "Book Now",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => GetTicketScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Book Now",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
