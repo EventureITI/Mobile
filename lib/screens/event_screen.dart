@@ -17,7 +17,7 @@ class EventDetails extends StatelessWidget {
                   height: 320,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/kinglear.jfif"),
+                        image: AssetImage("assets/images/events/kinglear.jfif"),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -170,7 +170,7 @@ class EventDetails extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(
-                    "assets/Icon-pain.svg",
+                    "assets/icons/ticket_fill.svg",
                     width: 16,
                     height: 16,
                   ),

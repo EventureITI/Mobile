@@ -1,4 +1,4 @@
-import 'package:eventure/screens/tickets_screen.dart';
+import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/profile_option.dart';
@@ -18,28 +18,52 @@ class ProfileTab extends StatelessWidget {
         color: bgColor,
         child: Column(
           children: <Widget>[
-            CustomText(text: "Profile", color: Colors.white,size: 22,),
-            SizedBox(height: 32,),
+            CustomText(
+              text: "Profile",
+              color: Colors.white,
+              size: 22,
+            ),
+            SizedBox(
+              height: 32,
+            ),
             SvgPicture.asset(
-              "assets/icons/avatar.svg",
+              "assets/icons/avatar_placeholder.svg",
               height: 96,
               width: 96,
             ),
-            SizedBox(height: 16,),
-            CustomText(text: "User Name", color: Colors.white, size: 25,),
-            SizedBox(height: 32,),
-            ProfileOption(optionIcon: "assets/icons/ticketProf.svg", optionText: "Your Tickets",nextScreen: TicketsScreen()),
+            SizedBox(
+              height: 16,
+            ),
+            CustomText(
+              text: "User Name",
+              color: Colors.white,
+              size: 25,
+            ),
+            SizedBox(
+              height: 32,
+            ),
+            ProfileOption(
+                optionIcon: "assets/icons/ticket_outline.svg",
+                optionText: "Your Tickets",
+                nextScreen: UserTicketsScreen()),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
-              width: MediaQuery.of(context).size.width ,
+              width: MediaQuery.of(context).size.width,
               height: 1,
               color: inpBg,
             ),
-            ProfileOption(optionIcon: "assets/icons/acc.svg", optionText: "Edit Profile",nextScreen: TicketsScreen()),
-            ProfileOption(optionIcon: "assets/icons/contact.svg", optionText: "Contact Us",nextScreen: TicketsScreen()),
-            ProfileOption(optionIcon: "assets/icons/logout.svg", optionText: "Log Out",nextScreen: TicketsScreen()),
- 
-
+            ProfileOption(
+                optionIcon: "assets/icons/acc.svg",
+                optionText: "Edit Profile",
+                nextScreen: UserTicketsScreen()),
+            ProfileOption(
+                optionIcon: "assets/icons/contact.svg",
+                optionText: "Contact Us",
+                nextScreen: UserTicketsScreen()),
+            ProfileOption(
+                optionIcon: "assets/icons/logout.svg",
+                optionText: "Log Out",
+                nextScreen: UserTicketsScreen()),
           ],
         ),
       ),

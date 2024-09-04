@@ -1,7 +1,9 @@
-import 'package:eventure/widgets/buildForm.dart';
+import 'package:eventure/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 
-class ContactUsScreen extends StatelessWidget {
+class ContactScreen extends StatelessWidget {
+  const ContactScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +30,10 @@ class ContactUsScreen extends StatelessWidget {
                 SizedBox(height: 16.0),
 
                 // Form
-                buildFormField("Name", "Your name/organization"),
-                buildFormField("Email", "Your email address"),
-                buildFormField("Subject", "Contact/event subject"),
-                buildFormField("Event description", "Details about your event",
+                customFormField("Name", "Your name/organization"),
+                customFormField("Email", "Your email address"),
+                customFormField("Subject", "Contact/event subject"),
+                customFormField("Event description", "Details about your event",
                     maxLines: 4),
 
                 // Send Button

@@ -13,17 +13,16 @@ class CarouselItem extends StatelessWidget {
   String? eventPrice;
   double? contHeight;
 
-  CarouselItem({
-    super.key, 
-    required this.eventActors,
-    required this.eventCategory,
-    required this.eventDate,
-    required this.eventPrice,
-    required this.eventTime,
-    required this.pic,
-    required this.title,
-    this.contHeight
-  });
+  CarouselItem(
+      {super.key,
+      required this.eventActors,
+      required this.eventCategory,
+      required this.eventDate,
+      required this.eventPrice,
+      required this.eventTime,
+      required this.pic,
+      required this.title,
+      this.contHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +39,11 @@ class CarouselItem extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 224,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16), 
-                            topRight: Radius.circular(16)
-                          ),
-                    image: DecorationImage(
-                      image: AssetImage("$pic"),
-                      fit: BoxFit.cover
-                    )
-                  ), 
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16)),
+                      image: DecorationImage(
+                          image: AssetImage("$pic"), fit: BoxFit.cover)),
                 ),
                 Container(
                   padding: EdgeInsets.all(8),
@@ -56,15 +51,18 @@ class CarouselItem extends StatelessWidget {
                   height: 224,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16), 
-                            topRight: Radius.circular(16)
-                          ),
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16)),
                     gradient: LinearGradient(
                       begin: Alignment(-0.02, 2.00),
                       end: Alignment(0.02, -1),
-                      colors: [Colors.black, Colors.black.withOpacity(0.800000011920929), Color(0x000D0C0F)],
+                      colors: [
+                        Colors.black,
+                        Colors.black.withOpacity(0.800000011920929),
+                        Color(0x000D0C0F)
+                      ],
                     ),
-                  ), 
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,16 +70,17 @@ class CarouselItem extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Color(0x33C9C9C9),
-                          borderRadius: BorderRadius.circular(16)
-                        ),
+                            color: Color(0x33C9C9C9),
+                            borderRadius: BorderRadius.circular(16)),
                         child: CustomText(
-                          text: "$eventCategory", 
-                          size: 10, 
+                          text: "$eventCategory",
+                          size: 10,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(
+                        height: 8,
+                      ),
                       CustomText(
                         text: "$title",
                         color: Colors.white,
@@ -95,67 +94,81 @@ class CarouselItem extends StatelessWidget {
               ],
             ),
           ),
-
           Flexible(
-            flex: 1,
-            child: Container(
-
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(16), 
-                  bottomRight: Radius.circular(16)
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(16),
+                      bottomRight: Radius.circular(16)),
+                  color: inpBg,
                 ),
-                color: inpBg,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          CustomText(text: "Date",size: 10,color: hintColor),
-                          CustomText(text: "$eventDate",size: 10 , color: Colors.white,),
-                        ],
-                      ),
-                      SizedBox(width: 8,),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          CustomText(text: "Time", size: 10, color: hintColor,),
-                          CustomText(text: "$eventTime",size: 10, color: Colors.white,),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width/4,
-                    height:31 ,
-                    decoration: BoxDecoration(
-                      color: btnColor,
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
                       children: <Widget>[
-                        SvgPicture.asset(
-                          "assets/icons/ticket.svg",
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CustomText(
+                                text: "Date", size: 10, color: hintColor),
+                            CustomText(
+                              text: "$eventDate",
+                              size: 10,
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
-                        // SizedBox(width: 8,),
-                        CustomText(text: "$eventPrice EGP", color: Colors.white, size: 12,)
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            CustomText(
+                              text: "Time",
+                              size: 10,
+                              color: hintColor,
+                            ),
+                            CustomText(
+                              text: "$eventTime",
+                              size: 10,
+                              color: Colors.white,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  )
-                ],
-              ),
-            )
-          )
+                    SizedBox(),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      width: MediaQuery.of(context).size.width / 4,
+                      height: 31,
+                      decoration: BoxDecoration(
+                          color: btnColor,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            "assets/icons/ticket_fill.svg",
+                          ),
+                          // SizedBox(width: 8,),
+                          CustomText(
+                            text: "$eventPrice EGP",
+                            color: Colors.white,
+                            size: 12,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ))
         ],
       ),
     );

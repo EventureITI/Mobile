@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class GetTicketScreen extends StatelessWidget {
+  const GetTicketScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +85,7 @@ class GetTicketScreen extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            "assets/prime_minus.svg",
+                            "assets/icons/cart_minus.svg",
                             width: 24,
                             height: 24,
                           ),
@@ -99,7 +100,7 @@ class GetTicketScreen extends StatelessWidget {
                           ),
                           SizedBox(width: 4),
                           SvgPicture.asset(
-                            "assets/ic_round-plus.svg",
+                            "assets/icons/cart_plus.svg",
                             width: 24,
                             height: 24,
                           ),
@@ -141,7 +142,7 @@ class GetTicketScreen extends StatelessWidget {
                     width: 20,
                   ),
                   SvgPicture.asset(
-                    "assets/fa6-brands_stripe-s.svg",
+                    "assets/icons/stripe.svg",
                     width: 24,
                     height: 24,
                   ),
@@ -180,7 +181,7 @@ class GetTicketScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(
-                    "assets/Icon-pain.svg",
+                    "assets/icons/ticket_fill.svg",
                     width: 16,
                     height: 16,
                   ),

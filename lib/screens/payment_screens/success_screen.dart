@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
+  const PaymentSuccessScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 100),
                   SvgPicture.asset(
-                    "assets/images/Illustration-success.svg",
+                    "assets/images/Illustration_success.svg",
                     width: 300,
                     height: 225,
                   ),

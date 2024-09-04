@@ -1,8 +1,6 @@
 import 'package:eventure/utils/text_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-// ignore: must_be_immutable
 class CustomInputfield extends StatelessWidget {
   TextInputType? inpType;
   String? label;

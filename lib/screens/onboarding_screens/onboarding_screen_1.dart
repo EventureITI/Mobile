@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OnboardingScreen1 extends StatelessWidget {
   final PageController pageController;
 
-  OnboardingScreen1({required this.pageController});
+  const OnboardingScreen1({super.key, required this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class OnboardingScreen1 extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            'assets/images/event_background.jpg',
+            'assets/images/onboarding_1.jpg',
             fit: BoxFit.cover,
           ),
           Container(

@@ -1,6 +1,4 @@
-// import 'package:eventure/screens/home_screen.dart';
-// import 'package:eventure/getTicketScreen.dart';
-import 'package:eventure/screens/login_screen.dart';
+import 'package:eventure/widgets/onboarding_pageview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,18 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        // theme: ThemeData(
-        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        //   useMaterial3: true,
-        // ),
+        title: 'Eventure',
         theme: ThemeData.dark(),
-        // home: ContactUsScreen(),
-        // home: OnboardingPageView(),
-        // home: PaymentSuccessScreen(),
-        // home: FailScreen(),
-        // home: GetTicketScreen(),
-        // home: HomeScreen());
-        home: LoginScreen());
+        home: OnboardingPageView());
   }
 }

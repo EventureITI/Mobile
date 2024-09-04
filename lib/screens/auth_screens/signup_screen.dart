@@ -1,6 +1,6 @@
-import 'package:eventure/screens/login_screen.dart';
+import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
-import 'package:eventure/widgets/custom_inputField.dart';
+import 'package:eventure/widgets/custom_input_field.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 

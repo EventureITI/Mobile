@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildFormField(String label, String hint, {int maxLines = 1}) {
+Widget customFormField(String label, String hint, {int maxLines = 1}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 24.0),
     child: Column(
