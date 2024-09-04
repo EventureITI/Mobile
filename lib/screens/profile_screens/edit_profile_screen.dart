@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/profile_screens/profile_tab.dart';
@@ -6,6 +8,7 @@ import 'package:eventure/widgets/custom_input_field.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -17,6 +20,8 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   bool _obscureText = true;
   bool _obscureTextConf = true;
+  File? _image;
+  final picker = ImagePicker();
 
   void togglePwVisiblity() {
     setState(() {
@@ -28,6 +33,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() {
       _obscureTextConf = !_obscureTextConf;
     });
+  }
+
+  // Pick Image
+  Future selectImage() async {
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedImage != null) {
+        _image = File(pickedImage.path);
+      }
+    });
+  }
+
+  // Upload Image
+  Future uploadImage() async {
+    if (_image == null) return;
+
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
   }
 
   @override
@@ -69,10 +92,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: <Widget>[
-                        SvgPicture.asset(
-                          "assets/icons/avatar_placeholder.svg",
-                          height: 96,
-                          width: 96,
+                        GestureDetector(
+                          onTap: () {
+                            selectImage();
+                          },
+                          child: _image == null
+                              ? SvgPicture.asset(
+                                  "assets/icons/avatar_placeholder.svg",
+                                  height: 180,
+                                  width: 180,
+                                )
+                              : Container(
+                                  height: 180,
+                                  width: 180,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(120),
+                                    child: Image.file(
+                                      _image!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                         ),
                         SizedBox(height: 32),
                         Row(
