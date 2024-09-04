@@ -1,5 +1,6 @@
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/carousel_item.dart';
+import 'package:eventure/widgets/category_container.dart';
 import 'package:eventure/widgets/custom_inputField.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,12 @@ class _ExploreTabState extends State<ExploreTab> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: bgColor,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: bgColor,
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -60,28 +61,84 @@ class _ExploreTabState extends State<ExploreTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   CustomText(text: "Categories", color: Colors.white, ),
+                  SizedBox(height: 16,),
+
+                  // scrolled Categories
+                  Container(
+                    height: 33,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        
+                        CategoryContainer(catName: "All", activeClr: btnColor,),
+                        CategoryContainer(catName: "Comedy"),
+                        CategoryContainer(catName: "Music"),
+                        CategoryContainer(catName: "Drama"),
+                        CategoryContainer(catName: "Theater"),
+                        CategoryContainer(catName: "Sports"),
+                        
+
+                        
+            
+                      ],
+                    ),
+                  ),
+
                   SizedBox(height: 24,),
-                  CarouselItem(
-                    contHeight: 265,
-                    pic: "assets/images/kinglear.jfif",
-                    eventCategory: "Drama",
-                    eventPrice: "450",
-                    title: "King Lear",
-                    eventActors: "Yehia El Fakharany",
-                    eventDate: "Sep 11",
-                    eventTime: "09:00 PM",
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        CarouselItem(
+                          contHeight: 265,
+                          marginBtm: 8,
+                          pic: "assets/images/kinglear.jfif",
+                          eventCategory: "Drama",
+                          eventPrice: "450",
+                          title: "King Lear",
+                          eventActors: "Yehia El Fakharany",
+                          eventDate: "Sep 11",
+                          eventTime: "09:00 PM",
+                        ),
+                        // SizedBox(height: 8,),
+                        CarouselItem(
+                          contHeight: 265,
+                          marginBtm: 8,
+                          pic: "assets/images/event1.jfif",
+                          eventCategory: "Comedy",
+                          eventPrice: "600",
+                          title: "Ain Gamal",
+                          eventActors: "Omar El Gamal • Ahmed Amin",
+                          eventDate: "Sep 14",
+                          eventTime: "10:00 PM",
+                        ),
+                        // SizedBox(height: 8,),
+                        CarouselItem(
+                          contHeight: 265,
+                          marginBtm: 8,
+                          pic: "assets/images/memo.png",
+                          eventCategory: "Comedy",
+                          eventPrice: "750",
+                          title: "Memo",
+                          eventActors: "Ahmed Helmy",
+                          eventDate: "Sep 20",
+                          eventTime: "08:00 PM",
+                        ),
+                        // SizedBox(height: 8,),
+                        CarouselItem(
+                          contHeight: 265,
+                          marginBtm: 8,
+                          pic: "assets/images/kinglear.jfif",
+                          eventCategory: "Drama",
+                          eventPrice: "450",
+                          title: "King Lear",
+                          eventActors: "Yehia El Fakharany",
+                          eventDate: "Sep 11",
+                          eventTime: "09:00 PM",
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 8,),
-                  CarouselItem(
-                    contHeight: 265,
-                    pic: "assets/images/event1.jfif",
-                    eventCategory: "Comedy",
-                    eventPrice: "600",
-                    title: "Ain Gamal",
-                    eventActors: "Omar El Gamal • Ahmed Amin",
-                    eventDate: "Sep 14",
-                    eventTime: "10:00 PM",
-                  ),
+                  
                   
                 ],
               )
