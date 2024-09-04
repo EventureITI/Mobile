@@ -13,6 +13,7 @@ class CarouselItem extends StatelessWidget {
   String? eventActors;
   String? eventPrice;
   double? contHeight;
+  double? marginBtm;
 
   CarouselItem(
       {super.key,
@@ -23,12 +24,14 @@ class CarouselItem extends StatelessWidget {
       required this.eventTime,
       required this.pic,
       required this.title,
-      this.contHeight});
+      this.contHeight,
+      this.marginBtm});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: contHeight,
+      margin: EdgeInsets.only(bottom: marginBtm ?? 0.0),
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
         onTap: () {
