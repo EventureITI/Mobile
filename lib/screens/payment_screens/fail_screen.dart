@@ -1,3 +1,4 @@
+import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,7 +53,7 @@ class PaymentFailScreen extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute<void>(
-                            builder: (BuildContext context) => HomeScreen(),
+                            builder: (BuildContext context) => EventScreen(),
                           ),
                         );
                       },

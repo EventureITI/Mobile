@@ -19,9 +19,9 @@ class EventContainer extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(bottom: 12),
         padding: EdgeInsets.all(8),
-        height: 90,
+        height: 100,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: inpBg, borderRadius: BorderRadius.circular(16)),
