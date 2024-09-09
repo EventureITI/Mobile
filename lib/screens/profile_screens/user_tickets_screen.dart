@@ -93,10 +93,10 @@ class _UserTicketsScreenState extends State<UserTicketsScreen> {
               color: bgColor,
               child: Column(
                 children: <Widget>[
-                  EventContainer(),
-                  EventContainer(),
-                  EventContainer(),
-                  EventContainer(),
+                  // EventContainer(),
+                  // EventContainer(),
+                  // EventContainer(),
+                  // EventContainer(),
                 ],
               ),
             ),
