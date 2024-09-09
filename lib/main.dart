@@ -1,13 +1,20 @@
+import 'package:eventure/firebase_options.dart';
+import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/onboarding_screens/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  // print('API Key: ${dotenv.env["AND_API_KEY"]}');
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  // print(DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Eventure',
         theme: ThemeData.dark(),
-        home: OnboardingScreen());
+        home: HomeScreen());
   }
 }
