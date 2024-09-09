@@ -14,7 +14,7 @@ class CategoriesController extends GetxController {
   }
 
   // Fetch categories from Firestore
-  void fetchCategories() async {
+  Future<void> fetchCategories() async {
     try {
       var fetchedCategories = await FirestoreService().getCategories();
       if (fetchedCategories.isNotEmpty) {
@@ -22,6 +22,7 @@ class CategoriesController extends GetxController {
           Category(id: 'all', category: 'All'),
           ...fetchedCategories
         ];
+        print("Categories fetched");
       }
     } catch (e) {
       print("Error fetching categories: $e");

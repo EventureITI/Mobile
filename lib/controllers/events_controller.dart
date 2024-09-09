@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 class EventsController extends GetxController {
   // Observable lists for events
-  RxBool isLoading = true.obs;
   RxList<Event> eventsList = <Event>[].obs;
   RxList<Event> categorizedEvents = <Event>[].obs;
   RxList<Event> filteredEvents = <Event>[].obs;
@@ -17,18 +16,17 @@ class EventsController extends GetxController {
   }
 
   // Fetch events from Firestore (Firestore --> eventsList)
-  void fetchEvents() async {
-    isLoading(true);
+  Future<void> fetchEvents() async {
     try {
       var events = await FirestoreService().getEvents();
       if (events.isNotEmpty) {
         eventsList.assignAll(events);
       }
+      print("Events fetched");
     } catch (e) {
       print("Error fetching events: $e");
     } finally {
       categorizeEvents('all');
-      isLoading(false);
     }
   }
 
