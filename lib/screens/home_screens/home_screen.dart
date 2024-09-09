@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  static const List<Widget> _tabs = <Widget>[
+  static List<Widget> _tabs = <Widget>[
     HomeTab(),
     ExploreTab(),
     ProfileTab()
