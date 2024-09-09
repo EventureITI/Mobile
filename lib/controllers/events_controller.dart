@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class EventsController extends GetxController {
   // final FirestoreService firestoreService = Get.find<FirestoreService>(); //!
 
-  // Observable lists
+  // Observable lists for events
   var eventsList = <Event>[].obs;
   var isLoading = true.obs;
   var filteredEvents = <Event>[].obs;
@@ -16,6 +16,7 @@ class EventsController extends GetxController {
     fetchEvents();
   }
 
+  // Fetch events from Firestore
   void fetchEvents() async {
     isLoading(true);
     try {
@@ -34,10 +35,8 @@ class EventsController extends GetxController {
   // Filter events based on selected category
   void filterEventsByCategory(String categoryId) {
     if (categoryId == 'all') {
-      // Show all events if 'all' is selected
       filteredEvents.assignAll(eventsList);
     } else {
-      // Filter events by category id
       filteredEvents.assignAll(
         eventsList.where((event) => event.category == categoryId).toList(),
       );
