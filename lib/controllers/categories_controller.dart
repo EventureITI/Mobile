@@ -18,7 +18,6 @@ class CategoriesController extends GetxController {
     try {
       var fetchedCategories = await FirestoreService().getCategories();
       if (fetchedCategories.isNotEmpty) {
-        // categoriesList.assignAll(fetchedCategories);
         categoriesList.value = [
           Category(id: 'all', category: 'All'),
           ...fetchedCategories

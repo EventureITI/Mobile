@@ -3,12 +3,12 @@ import 'package:eventure/services/firebase_service.dart';
 import 'package:get/get.dart';
 
 class EventsController extends GetxController {
-  // final FirestoreService firestoreService = Get.find<FirestoreService>(); //!
-
   // Observable lists for events
-  var eventsList = <Event>[].obs;
-  var isLoading = true.obs;
-  var filteredEvents = <Event>[].obs;
+  RxBool isLoading = true.obs;
+  RxList<Event> eventsList = <Event>[].obs;
+  RxList<Event> categorizedEvents = <Event>[].obs;
+  RxList<Event> filteredEvents = <Event>[].obs;
+  RxString searchQuery = ''.obs;
 
   @override
   void onInit() {
@@ -16,30 +16,44 @@ class EventsController extends GetxController {
     fetchEvents();
   }
 
-  // Fetch events from Firestore
+  // Fetch events from Firestore (Firestore --> eventsList)
   void fetchEvents() async {
     isLoading(true);
     try {
       var events = await FirestoreService().getEvents();
       if (events.isNotEmpty) {
         eventsList.assignAll(events);
-        filteredEvents.assignAll(events);
       }
     } catch (e) {
       print("Error fetching events: $e");
     } finally {
+      categorizeEvents('all');
       isLoading(false);
     }
   }
 
-  // Filter events based on selected category
-  void filterEventsByCategory(String categoryId) {
+  // Filter events based on selected category (eventsList --> categorizedEvents)
+  void categorizeEvents(String categoryId) {
     if (categoryId == 'all') {
-      filteredEvents.assignAll(eventsList);
+      categorizedEvents.assignAll(eventsList);
     } else {
-      filteredEvents.assignAll(
+      categorizedEvents.assignAll(
         eventsList.where((event) => event.category == categoryId).toList(),
       );
+    }
+    filterEvents();
+  }
+
+  // Filter events based on search query (categorizedEvents --> filteredEvents)
+  void filterEvents() {
+    String query = searchQuery.value.toLowerCase();
+
+    if (query.isNotEmpty) {
+      filteredEvents.value = categorizedEvents
+          .where((event) => event.title.toLowerCase().contains(query))
+          .toList();
+    } else {
+      filteredEvents.value = categorizedEvents;
     }
   }
 }

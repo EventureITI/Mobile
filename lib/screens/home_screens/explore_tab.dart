@@ -21,6 +21,25 @@ class _ExploreTabState extends State<ExploreTab> {
   final CategoriesController categoriesController =
       Get.put(CategoriesController());
 
+  // Search controller
+  final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(() {
+      eventsController.searchQuery.value = searchController.text;
+      eventsController.filterEvents();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,6 +58,7 @@ class _ExploreTabState extends State<ExploreTab> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: TextFormField(
+                  controller: searchController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 24),
@@ -91,8 +111,7 @@ class _ExploreTabState extends State<ExploreTab> {
                               setState(() {
                                 categoriesController
                                     .selectCategory(category.id);
-                                eventsController
-                                    .filterEventsByCategory(category.id);
+                                eventsController.categorizeEvents(category.id);
                               });
                             },
                             child: CategoryContainer(
