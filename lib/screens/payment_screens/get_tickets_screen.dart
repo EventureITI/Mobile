@@ -1,5 +1,6 @@
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/screens/payment_screens/success_screen.dart';
+import 'package:eventure/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -182,7 +183,7 @@ class GetTicketScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                // Handle button press
+                StripeService.instance.makePayment(600);
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -193,23 +194,12 @@ class GetTicketScreen extends StatelessWidget {
                     height: 16,
                   ),
                   SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              PaymentSuccessScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Pay Now",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white, // Text color
-                      ),
+                  Text(
+                    "Pay Now",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white, // Text color
                     ),
                   ),
                 ],
