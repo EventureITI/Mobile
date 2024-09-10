@@ -56,13 +56,7 @@ class HomeTab extends StatelessWidget {
                           ),
                           TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        LoginScreen(),
-                                  ),
-                                );
+                                Get.to(() => LoginScreen());
                               },
                               child: CustomText(
                                 text: "Login",
@@ -75,12 +69,7 @@ class HomeTab extends StatelessWidget {
                     // banner
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => EventScreen(),
-                          ),
-                        );
+                        Get.to(() => EventScreen(), arguments: eventsList[0]);
                       },
                       child: Container(
                         padding: EdgeInsets.only(top: 24),

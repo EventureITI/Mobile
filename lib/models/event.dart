@@ -17,6 +17,7 @@ class Event {
   final String categoryId;
   final String tickets;
   final String eventDate;
+  final String fullEventDate;
 
   Event({
     required this.id,
@@ -34,6 +35,7 @@ class Event {
     required this.categoryId,
     required this.tickets,
     required this.eventDate,
+    required this.fullEventDate,
   });
 
   // Factory method to create Event from Firestore DocumentSnapshot
@@ -77,6 +79,7 @@ class Event {
       categoryId: data['categoryId'] ?? '',
       tickets: data['tickets'] ?? '',
       eventDate: DateFormat('MMM dd').format(fetchedEventDate),
+      fullEventDate: DateFormat('MMMM d, yyyy').format(fetchedEventDate),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProfileOption extends StatelessWidget {
   Widget nextScreen;
@@ -16,12 +17,7 @@ class ProfileOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push<void>(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => nextScreen,
-          ),
-        );
+        Get.to(() => nextScreen);
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24),

@@ -1,16 +1,20 @@
+import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/payment_screens/get_tickets_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class EventScreen extends StatelessWidget {
-  const EventScreen({super.key});
+  EventScreen({super.key});
+  Event event = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -19,8 +23,7 @@ class EventScreen extends StatelessWidget {
                   height: 320,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/images/events/kinglear.jfif"),
-                        fit: BoxFit.cover),
+                        image: NetworkImage(event.imgUrl), fit: BoxFit.cover),
                   ),
                 ),
                 Container(
@@ -46,7 +49,7 @@ class EventScreen extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      "King Lear",
+                      event.title,
                       style: const TextStyle(
                         fontFamily: "Inter",
                         fontSize: 32,
@@ -63,12 +66,7 @@ class EventScreen extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => HomeScreen(),
-                        ),
-                      );
+                      Get.back();
                     },
                   ),
                 ),
@@ -93,7 +91,7 @@ class EventScreen extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    "King Lear decides to distribute his property among his three daughters, and because his youngest daughter refuses to fawn over him, he casts her off. While distributing the property, he stipulates that he reside with each of his daughters for a certain period, but his two older daughters decide to seize everything and expel their father.",
+                    event.description,
                     style: const TextStyle(
                         fontFamily: "Inter",
                         fontSize: 14,
@@ -119,7 +117,7 @@ class EventScreen extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    "September 14, 2024 - 07:00PM - 10:00PM",
+                    "${event.fullEventDate} - ${event.startTime} - ${event.endTime}",
                     style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 14,
@@ -145,7 +143,7 @@ class EventScreen extends StatelessWidget {
                     height: 4,
                   ),
                   Text(
-                    "Cairo Show, The Marquee Theater, New Cairo 1, Cairo Governorate ",
+                    event.location,
                     style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 14,
@@ -167,7 +165,7 @@ class EventScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Price\n600.00 EGP",
+              "Price\n${event.price} EGP",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -182,7 +180,9 @@ class EventScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => GetTicketScreen(), arguments: event);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -192,22 +192,12 @@ class EventScreen extends StatelessWidget {
                     height: 16,
                   ),
                   SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => GetTicketScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Book Now",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+                  Text(
+                    "Book Now",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
                     ),
                   ),
                 ],

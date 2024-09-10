@@ -3,6 +3,7 @@ import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/event_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserTicketsScreen extends StatefulWidget {
   const UserTicketsScreen({super.key});
@@ -20,7 +21,7 @@ class _UserTicketsScreenState extends State<UserTicketsScreen> {
           appBar: AppBar(
             leading: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: Icon(
                   Icons.arrow_back_sharp,

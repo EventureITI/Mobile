@@ -1,5 +1,6 @@
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OnboardingScreen3 extends StatelessWidget {
   final PageController pageController;
@@ -58,12 +59,7 @@ class OnboardingScreen3 extends StatelessWidget {
                   height: 48,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => HomeScreen(),
-                        ),
-                      );
+                      Get.off(() => HomeScreen());
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Color(0xFF4FE0D2),

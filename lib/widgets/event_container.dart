@@ -4,6 +4,7 @@ import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class EventContainer extends StatelessWidget {
   final Event event;
@@ -17,12 +18,7 @@ class EventContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) => EventScreen(),
-          ),
-        );
+        Get.to(() => EventScreen(), arguments: event);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),

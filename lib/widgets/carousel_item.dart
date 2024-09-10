@@ -29,12 +29,7 @@ class CarouselItem extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => EventScreen(),
-            ),
-          );
+          Get.to(() => EventScreen(), arguments: event);
         },
         child: Column(
           children: [

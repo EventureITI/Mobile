@@ -1,6 +1,7 @@
 import 'package:eventure/screens/profile_screens/profile_tab.dart';
 import 'package:eventure/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ContactScreen extends StatelessWidget {
   const ContactScreen({super.key});
@@ -18,12 +19,7 @@ class ContactScreen extends StatelessWidget {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => ProfileTab(),
-                ),
-              );
+              Get.back();
             },
           ),
         ),

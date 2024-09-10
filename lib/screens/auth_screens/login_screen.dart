@@ -4,6 +4,7 @@ import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_input_field.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -82,12 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 48,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (BuildContext context) =>
-                                    const HomeScreen(),
-                              ));
+                          Get.off(() => HomeScreen());
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: btnColor,
@@ -113,12 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => SignupScreen(),
-                          ),
-                        );
+                        Get.off(() => SignupScreen());
                       },
                       child: CustomText(
                         text: "Sign Up",

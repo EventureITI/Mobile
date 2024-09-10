@@ -8,6 +8,7 @@ import 'package:eventure/widgets/custom_input_field.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -69,12 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => ProfileTab(),
-              ),
-            );
+            Get.back();
           },
         ),
       ),
@@ -182,13 +178,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute<void>(
-                                  builder: (BuildContext context) =>
-                                      HomeScreen(),
-                                ),
-                              );
+                              Get.off(() => HomeScreen());
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: btnColor,
