@@ -1,11 +1,43 @@
+import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/event_screen.dart';
+import 'package:eventure/screens/payment_screens/fail_screen.dart';
 import 'package:eventure/screens/payment_screens/success_screen.dart';
 import 'package:eventure/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class GetTicketScreen extends StatelessWidget {
-  const GetTicketScreen({super.key});
+class GetTicketScreen extends StatefulWidget {
+  GetTicketScreen({super.key});
+
+  @override
+  _GetTicketScreenState createState() => _GetTicketScreenState();
+}
+
+class _GetTicketScreenState extends State<GetTicketScreen> {
+  Event event = Get.arguments;
+  int numberOfTickets = 1;
+  late double totalPrice = double.parse(event.price);
+
+  _handlePaymentSuccess() {
+    Get.off(() => PaymentSuccessScreen(), arguments: {
+      "event": event,
+      "numberOfTickets": numberOfTickets,
+      "totalPrice": totalPrice,
+    });
+  }
+
+  _handlePaymentFailure() {
+    Get.off(() => PaymentFailScreen());
+  }
+
+  void updateTicketCount(int change) {
+    setState(() {
+      numberOfTickets += change;
+      if (numberOfTickets < 1) numberOfTickets = 1;
+      totalPrice = double.parse(event.price) * numberOfTickets;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +52,7 @@ class GetTicketScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => EventScreen(),
-              ),
-            );
+            Get.back();
           },
         ),
       ),
@@ -34,9 +61,7 @@ class GetTicketScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 16,
-            ),
+            SizedBox(height: 16),
             Text(
               "Select Ticket",
               style: TextStyle(
@@ -55,7 +80,7 @@ class GetTicketScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Ismailia Art Festival 2024, ITI Ismailia",
+                    event.title,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -63,7 +88,7 @@ class GetTicketScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "07:00 PM - 10:00 PM",
+                    "${event.startTime} - ${event.endTime}",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -71,7 +96,7 @@ class GetTicketScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Saturday, Sep 14",
+                    event.fullEventDate,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
@@ -83,7 +108,7 @@ class GetTicketScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "600 EGP",
+                        "${event.price} EGP",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
@@ -92,25 +117,31 @@ class GetTicketScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          SvgPicture.asset(
-                            "assets/icons/cart_minus.svg",
-                            width: 24,
-                            height: 24,
+                          GestureDetector(
+                            onTap: () => updateTicketCount(-1),
+                            child: SvgPicture.asset(
+                              "assets/icons/cart_minus.svg",
+                              width: 24,
+                              height: 24,
+                            ),
                           ),
-                          SizedBox(width: 4),
+                          SizedBox(width: 8),
                           Text(
-                            "1",
+                            "$numberOfTickets",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(width: 4),
-                          SvgPicture.asset(
-                            "assets/icons/cart_plus.svg",
-                            width: 24,
-                            height: 24,
+                          SizedBox(width: 8),
+                          GestureDetector(
+                            onTap: () => updateTicketCount(1),
+                            child: SvgPicture.asset(
+                              "assets/icons/cart_plus.svg",
+                              width: 24,
+                              height: 24,
+                            ),
                           ),
                         ],
                       ),
@@ -146,9 +177,7 @@ class GetTicketScreen extends StatelessWidget {
                       color: Colors.white, // Text color for contrast
                     ),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
+                  SizedBox(width: 20),
                   SvgPicture.asset(
                     "assets/icons/stripe.svg",
                     width: 24,
@@ -167,7 +196,7 @@ class GetTicketScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Total price\n600.00 EGP",
+              "Total price\n${totalPrice.toString()} EGP",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -183,7 +212,11 @@ class GetTicketScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                StripeService.instance.makePayment(600);
+                StripeService.instance.makePayment(
+                  totalPrice,
+                  _handlePaymentSuccess,
+                  _handlePaymentFailure,
+                );
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,

@@ -2,6 +2,7 @@ import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class PaymentFailScreen extends StatelessWidget {
   const PaymentFailScreen({super.key});
@@ -50,12 +51,7 @@ class PaymentFailScreen extends StatelessWidget {
                     height: 48,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => EventScreen(),
-                          ),
-                        );
+                        Get.back();
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color(0xFF4FE0D2),

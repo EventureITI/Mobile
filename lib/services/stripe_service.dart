@@ -4,32 +4,41 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 
 class StripeService {
   StripeService._();
-
   static final StripeService instance = StripeService._();
 
-  Future<void> makePayment(amount) async {
+  // Initiate the payment process
+  Future<void> makePayment(
+      double totalPrice, Function onSuccess, Function onFailure) async {
     try {
+      // Create a payment intent on the server
       String? paymentIntentClientSecret = await _createPaymentIntent(
-        amount,
+        totalPrice,
         "egp",
       );
       if (paymentIntentClientSecret == null) return;
+
+      // Initialize the payment sheet with the client secret
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
             paymentIntentClientSecret: paymentIntentClientSecret,
             merchantDisplayName: "Eventure"),
       );
-      await _processPayment();
+
+      // Display the payment sheet and process the payment
+      await _processPayment(onFailure);
+
+      onSuccess();
     } catch (e) {
       print(e);
     }
   }
 
-  Future<String?> _createPaymentIntent(int amount, String currency) async {
+  Future<String?> _createPaymentIntent(
+      double totalPrice, String currency) async {
     try {
       final Dio dio = Dio();
       Map<String, dynamic> data = {
-        "amount": _baseCurrency(amount),
+        "amount": _baseCurrency(totalPrice),
         "currency": currency
       };
       var response = await dio.post(
@@ -54,17 +63,26 @@ class StripeService {
     return null;
   }
 
-  Future<void> _processPayment() async {
+  Future<void> _processPayment(Function onFailure) async {
     try {
       await Stripe.instance.presentPaymentSheet();
       await Stripe.instance.confirmPaymentSheetPayment();
+    } on StripeException catch (e) {
+      // Catch Stripe exceptions
+      if (e.error.code == FailureCode.Canceled) {
+        print("Payment canceled by the user");
+      } else {
+        onFailure();
+        print("Payment error: ${e.error.localizedMessage}");
+      }
     } catch (e) {
+      // Other errors in payment processing
       print(e);
     }
   }
 
-  String _baseCurrency(int amount) {
+  String _baseCurrency(double amount) {
     final baseCurrency = amount * 100;
-    return baseCurrency.toString();
+    return baseCurrency.toInt().toString();
   }
 }

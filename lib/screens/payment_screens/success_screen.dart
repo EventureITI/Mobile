@@ -1,12 +1,19 @@
-import 'package:eventure/screens/payment_screens/fail_screen.dart';
+import 'package:eventure/models/event.dart';
+import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
-  const PaymentSuccessScreen({super.key});
+  PaymentSuccessScreen({super.key});
+  Map paymentDetails = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    final Event event = paymentDetails["event"];
+    final int numberOfTickets = paymentDetails["numberOfTickets"];
+    final double totalPrice = paymentDetails["totalPrice"];
+
     return Scaffold(
       backgroundColor: Color(0xFF151515),
       body: SafeArea(
@@ -26,12 +33,13 @@ class PaymentSuccessScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 32),
                   Text(
-                    "Payment Successful",
+                    "Payment Successful\n${event.title}\nTickets x${numberOfTickets}\n${totalPrice} EGP",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 16),
                   Text(
@@ -49,13 +57,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                     height: 48,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                PaymentFailScreen(),
-                          ),
-                        );
+                        Get.off(() => UserTicketsScreen());
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color(0xFF4FE0D2),
@@ -83,7 +85,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                     height: 48,
                     child: TextButton(
                       onPressed: () {
-                        //! TODO
+                        Get.back();
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Color(0x801F1F1F),
