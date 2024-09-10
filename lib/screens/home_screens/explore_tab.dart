@@ -121,7 +121,7 @@ class _ExploreTabState extends State<ExploreTab> {
                                 });
                               },
                               child: CategoryContainer(
-                                catName: category.category,
+                                catName: category.name,
                                 activeClr: isSelected ? btnColor : null,
                               ),
                             );
@@ -145,13 +145,9 @@ class _ExploreTabState extends State<ExploreTab> {
                               eventsController.filteredEvents.map((event) {
                             return CarouselItem(
                               contHeight: 265,
-                              pic: "assets/images/events/kinglear.jfif",
-                              eventCategory: "Drama",
-                              eventPrice: "450",
-                              title: "King Lear",
-                              eventActors: "Yehia El Fakharany",
-                              eventDate: "Sep 11",
-                              eventTime: "09:00 PM",
+                              marginBtm: 16,
+                              event: event,
+                              categories: categoriesController.categoriesList,
                             );
                           }).toList(),
                         );

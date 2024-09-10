@@ -1,3 +1,4 @@
+import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
@@ -5,7 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class EventContainer extends StatelessWidget {
-  const EventContainer({super.key});
+  final Event event;
+
+  const EventContainer({
+    super.key,
+    required this.event,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +40,7 @@ class EventContainer extends StatelessWidget {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(16),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/events/kinglear.jfif"),
-                        fit: BoxFit.cover),
+                        image: NetworkImage(event.imgUrl), fit: BoxFit.cover),
                   ),
                 )),
             Expanded(
@@ -47,7 +52,7 @@ class EventContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       CustomText(
-                        text: "King Lear",
+                        text: event.title,
                         color: Colors.white,
                       ),
                       Row(
@@ -63,7 +68,7 @@ class EventContainer extends StatelessWidget {
                                   CustomText(
                                       text: "Date", size: 10, color: hintColor),
                                   CustomText(
-                                    text: "Sep 11",
+                                    text: event.eventDate,
                                     size: 10,
                                     color: Colors.white,
                                   ),
@@ -82,7 +87,7 @@ class EventContainer extends StatelessWidget {
                                     color: hintColor,
                                   ),
                                   CustomText(
-                                    text: "09:00 PM",
+                                    text: event.startTime,
                                     size: 10,
                                     color: Colors.white,
                                   ),
@@ -106,7 +111,7 @@ class EventContainer extends StatelessWidget {
                                 ),
                                 // SizedBox(width: 8,),
                                 CustomText(
-                                  text: "600 EGP",
+                                  text: "${event.price} EGP",
                                   color: Colors.white,
                                   size: 12,
                                 )

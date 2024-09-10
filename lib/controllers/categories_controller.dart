@@ -19,7 +19,7 @@ class CategoriesController extends GetxController {
       var fetchedCategories = await FirestoreService().getCategories();
       if (fetchedCategories.isNotEmpty) {
         categoriesList.value = [
-          Category(id: 'all', category: 'All'),
+          Category(id: 'all', name: 'All'),
           ...fetchedCategories
         ];
         print("Categories fetched");

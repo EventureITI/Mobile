@@ -34,8 +34,11 @@ class HomeTab extends StatelessWidget {
           child: SingleChildScrollView(
             child: Obx(
               () {
+                final eventsList = eventsController.eventsList;
+                final categoriesList = categoriesController.categoriesList;
+
                 // empty state
-                if (eventsController.eventsList.isEmpty) {
+                if (eventsList.isEmpty) {
                   return Center(child: Text("No events available"));
                 }
 
@@ -80,142 +83,113 @@ class HomeTab extends StatelessWidget {
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.only(top: 24),
-                          color: bgColor,
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                height: 224,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/events/omar_elgamal.jfif"),
-                                        fit: BoxFit.cover)),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                width: MediaQuery.of(context).size.width,
-                                height: 224,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  gradient: LinearGradient(
-                                    begin: Alignment(-0.02, 2.00),
-                                    end: Alignment(0.02, -1),
-                                    colors: [
-                                      Colors.black,
-                                      Colors.black
-                                          .withOpacity(0.800000011920929),
-                                      Color(0x000D0C0F)
-                                    ],
-                                  ),
+                        padding: EdgeInsets.only(top: 24),
+                        color: bgColor,
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 224,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: NetworkImage(eventsList[0].imgUrl),
+                                  fit: BoxFit.cover,
                                 ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: Color(0x33C9C9C9),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: CustomText(
-                                        text: "Comedy",
-                                        size: 10,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    CustomText(
-                                      text: "Ain Gamal",
-                                      color: Colors.white,
-                                    ),
-                                    CustomText(
-                                      text: "Omar El Gamal • Ahmed Amin",
-                                    ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width,
+                              height: 224,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                gradient: LinearGradient(
+                                  begin: Alignment(-0.02, 2.00),
+                                  end: Alignment(0.02, -1),
+                                  colors: [
+                                    Colors.black,
+                                    Colors.black.withOpacity(0.800000011920929),
+                                    Color(0x000D0C0F)
                                   ],
                                 ),
                               ),
-                            ],
-                          )),
+                              child: eventsList.isNotEmpty
+                                  ? Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: Color(0x33C9C9C9),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: CustomText(
+                                            text: categoriesList
+                                                .firstWhere((cat) =>
+                                                    cat.id ==
+                                                    eventsList[0].categoryId)
+                                                .name,
+                                            size: 10,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(height: 8),
+                                        CustomText(
+                                          text: eventsList[0].title,
+                                          color: Colors.white,
+                                        ),
+                                        CustomText(
+                                          text: eventsList[0].host,
+                                        ),
+                                      ],
+                                    )
+                                  : SizedBox.shrink(),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
 
-                    //upcoming events
+                    // upcoming events
                     Container(
                       color: bgColor,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          SizedBox(
-                            height: 24,
-                          ),
+                          SizedBox(height: 24),
                           CustomText(
                             text: "Upcoming Events",
                             color: Colors.white,
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          SizedBox(height: 10),
                           CarouselSlider(
-                              items: <Widget>[
-                                CarouselItem(
-                                  pic: "assets/images/events/kinglear.jfif",
-                                  eventCategory: "Drama",
-                                  eventPrice: "450",
-                                  title: "King Lear",
-                                  eventActors: "Yehia El Fakharany",
-                                  eventDate: "Sep 11",
-                                  eventTime: "09:00 PM",
-                                ),
-                                CarouselItem(
-                                  pic: "assets/images/events/omar_elgamal.jfif",
-                                  eventCategory: "Comedy",
-                                  eventPrice: "600",
-                                  title: "Ain Gamal",
-                                  eventActors: "Omar El Gamal • Ahmed Amin",
-                                  eventDate: "Sep 14",
-                                  eventTime: "10:00 PM",
-                                ),
-                                CarouselItem(
-                                  pic: "assets/images/events/memo.png",
-                                  eventCategory: "Comedy",
-                                  eventPrice: "750",
-                                  title: "Memo",
-                                  eventActors: "Ahmed Helmy",
-                                  eventDate: "Sep 20",
-                                  eventTime: "08:00 PM",
-                                ),
-                              ],
-                              options: CarouselOptions(
-                                height: 250,
-                                enlargeCenterPage: true,
-                                autoPlay: true,
-                              )),
-
-                          // ListView.builder(
-                          //   scrollDirection: Axis.horizontal,
-                          //   itemCount: 4,
-                          //   itemBuilder: (context, int index)=> Container(
-                          //     width: 100,
-                          //     height: 100,
-                          //     color: Colors.yellow,
-                          //     child: Center(child: Text("data1")),
-                          //   )
-                          // )
+                            items: eventsList.length >= 3
+                                ? [
+                                    for (int i = 1; i <= 3; i++)
+                                      CarouselItem(
+                                        event: eventsList[i],
+                                        categories: categoriesList,
+                                      ),
+                                  ]
+                                : [],
+                            options: CarouselOptions(
+                              height: 250,
+                              enlargeCenterPage: true,
+                              autoPlay: true,
+                            ),
+                          ),
                         ],
                       ),
                     ),
 
-                    SizedBox(
-                      height: 24,
-                    ),
+                    SizedBox(height: 24),
 
                     // more events
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,28 +198,17 @@ class HomeTab extends StatelessWidget {
                             text: "More Events",
                             color: Colors.white,
                           ),
+                          SizedBox(height: 10),
                           SizedBox(
-                            height: 10,
-                          ),
-
-                          // Container(
-                          //   width: MediaQuery.of(context).size.width,
-                          //   child: ListView.builder(
-                          //     shrinkWrap: true,
-                          //     itemCount: 4,
-                          //     itemBuilder: (context, count) => EventContainer()
-                          //   ),
-                          // )
-
-                          Container(
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               children: <Widget>[
-                                EventContainer(),
-                                EventContainer(),
-                                EventContainer(),
-                                EventContainer(),
-                                EventContainer(),
+                                for (int i = 4;
+                                    i < 7 && i < eventsList.length;
+                                    i++)
+                                  EventContainer(
+                                    event: eventsList[i],
+                                  ),
                               ],
                             ),
                           ),

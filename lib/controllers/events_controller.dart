@@ -36,7 +36,7 @@ class EventsController extends GetxController {
       categorizedEvents.assignAll(eventsList);
     } else {
       categorizedEvents.assignAll(
-        eventsList.where((event) => event.category == categoryId).toList(),
+        eventsList.where((event) => event.categoryId == categoryId).toList(),
       );
     }
     filterEvents();

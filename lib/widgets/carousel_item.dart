@@ -1,31 +1,25 @@
+import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class CarouselItem extends StatelessWidget {
-  String? pic;
-  String? eventDate;
-  String? eventTime;
-  String? eventCategory;
-  String? title;
-  String? eventActors;
-  String? eventPrice;
+  Event event;
+  RxList categories;
   double? contHeight;
   double? marginBtm;
 
-  CarouselItem(
-      {super.key,
-      required this.eventActors,
-      required this.eventCategory,
-      required this.eventDate,
-      required this.eventPrice,
-      required this.eventTime,
-      required this.pic,
-      required this.title,
-      this.contHeight,
-      this.marginBtm});
+  CarouselItem({
+    super.key,
+    required this.event,
+    required this.categories,
+    this.contHeight,
+    this.marginBtm,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +50,8 @@ class CarouselItem extends StatelessWidget {
                             topLeft: Radius.circular(16),
                             topRight: Radius.circular(16)),
                         image: DecorationImage(
-                            image: AssetImage("$pic"), fit: BoxFit.cover)),
+                            image: NetworkImage(event.imgUrl),
+                            fit: BoxFit.cover)),
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
@@ -86,7 +81,8 @@ class CarouselItem extends StatelessWidget {
                               color: Color(0x33C9C9C9),
                               borderRadius: BorderRadius.circular(16)),
                           child: CustomText(
-                            text: "$eventCategory",
+                            text:
+                                "${categories.firstWhere((cat) => cat.id == event.categoryId).name}",
                             size: 10,
                             color: Colors.white,
                           ),
@@ -95,11 +91,11 @@ class CarouselItem extends StatelessWidget {
                           height: 8,
                         ),
                         CustomText(
-                          text: "$title",
+                          text: event.title,
                           color: Colors.white,
                         ),
                         CustomText(
-                          text: "$eventActors", //Omar El Gamal • Ahmed Amin
+                          text: event.host, //Omar El Gamal • Ahmed Amin
                         ),
                       ],
                     ),
@@ -129,7 +125,7 @@ class CarouselItem extends StatelessWidget {
                               CustomText(
                                   text: "Date", size: 10, color: hintColor),
                               CustomText(
-                                text: "$eventDate",
+                                text: event.eventDate,
                                 size: 10,
                                 color: Colors.white,
                               ),
@@ -148,7 +144,7 @@ class CarouselItem extends StatelessWidget {
                                 color: hintColor,
                               ),
                               CustomText(
-                                text: "$eventTime",
+                                text: event.startTime,
                                 size: 10,
                                 color: Colors.white,
                               ),
@@ -172,7 +168,7 @@ class CarouselItem extends StatelessWidget {
                             ),
                             // SizedBox(width: 8,),
                             CustomText(
-                              text: "$eventPrice EGP",
+                              text: "${event.price} EGP",
                               color: Colors.white,
                               size: 12,
                             )

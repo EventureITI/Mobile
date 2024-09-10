@@ -1,17 +1,17 @@
 class Category {
   final String id;
-  final String category;
+  final String name;
 
   Category({
     required this.id,
-    required this.category,
+    required this.name,
   });
 
   // Factory method to create Category from Firestore DocumentSnapshot
   factory Category.fromFirestore(Map<String, dynamic> data, String documentId) {
     return Category(
       id: documentId,
-      category: data['category'] ?? '',
+      name: data['name'] ?? '',
     );
   }
 }

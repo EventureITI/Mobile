@@ -1,36 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class Event {
   final String id;
-  final String imageURL;
   final String title;
   final String host;
   final String location;
   final String price;
-  final String category;
-  final DateTime eventDate;
-  final DateTime startTime;
-  final DateTime endTime;
+  final String startTime;
+  final String endTime;
+  final String startDate;
+  final String endDate;
   final String description;
-  final DateTime startDate;
-  final DateTime endDate;
-  final String numOfTickets;
+  final bool isDeleted;
+  final String imgUrl;
+  final String categoryId;
+  final String tickets;
+  final String eventDate;
 
   Event({
     required this.id,
-    required this.imageURL,
     required this.title,
     required this.host,
     required this.location,
     required this.price,
-    required this.category,
-    required this.eventDate,
     required this.startTime,
     required this.endTime,
-    required this.description,
     required this.startDate,
     required this.endDate,
-    required this.numOfTickets,
+    required this.description,
+    required this.isDeleted,
+    required this.imgUrl,
+    required this.categoryId,
+    required this.tickets,
+    required this.eventDate,
   });
 
   // Factory method to create Event from Firestore DocumentSnapshot
@@ -47,21 +50,33 @@ class Event {
       return null;
     }
 
+    DateTime fetchedStartTime =
+        convertToDateTime(data['startTime']) ?? DateTime.now();
+    DateTime fetchedEndTime =
+        convertToDateTime(data['endTime']) ?? DateTime.now();
+    DateTime fetchedStartDate =
+        convertToDateTime(data['startDate']) ?? DateTime.now();
+    DateTime fetchedEndDate =
+        convertToDateTime(data['endDate']) ?? DateTime.now();
+    DateTime fetchedEventDate =
+        convertToDateTime(data['eventDate']) ?? DateTime.now();
+
     return Event(
       id: documentId,
-      imageURL: data['imageURL'] ?? '',
       title: data['title'] ?? '',
       host: data['host'] ?? '',
       location: data['location'] ?? '',
       price: data['price'] ?? '',
-      category: data['category'] ?? '',
-      eventDate: convertToDateTime(data['eventDate']) ?? DateTime.now(),
-      startTime: convertToDateTime(data['startTime']) ?? DateTime.now(),
-      endTime: convertToDateTime(data['endTime']) ?? DateTime.now(),
+      startTime: DateFormat('hh:mm a').format(fetchedStartTime),
+      endTime: DateFormat('hh:mm a').format(fetchedEndTime),
+      startDate: DateFormat('MMM dd').format(fetchedStartDate),
+      endDate: DateFormat('MMM dd').format(fetchedEndDate),
       description: data['description'] ?? '',
-      startDate: convertToDateTime(data['startDate']) ?? DateTime.now(),
-      endDate: convertToDateTime(data['endDate']) ?? DateTime.now(),
-      numOfTickets: data['numOfTickets'] ?? '',
+      isDeleted: data['isDeleted'] ?? false,
+      imgUrl: data['imgUrl'] ?? '',
+      categoryId: data['categoryId'] ?? '',
+      tickets: data['tickets'] ?? '',
+      eventDate: DateFormat('MMM dd').format(fetchedEventDate),
     );
   }
 }

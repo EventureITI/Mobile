@@ -61,29 +61,9 @@ class _UserTicketsScreenState extends State<UserTicketsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    CarouselItem(
-                      contHeight: 265,
-                      pic: "assets/images/events/kinglear.jfif",
-                      eventCategory: "Drama",
-                      eventPrice: "450",
-                      title: "King Lear",
-                      eventActors: "Yehia El Fakharany",
-                      eventDate: "Sep 11",
-                      eventTime: "09:00 PM",
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    CarouselItem(
-                      contHeight: 265,
-                      pic: "assets/images/events/omar_elgamal.jfif",
-                      eventCategory: "Comedy",
-                      eventPrice: "600",
-                      title: "Ain Gamal",
-                      eventActors: "Omar El Gamal • Ahmed Amin",
-                      eventDate: "Sep 14",
-                      eventTime: "10:00 PM",
-                    ),
+                    // CarouselItem(
+                    //   contHeight: 265,
+                    // ),
                   ],
                 )),
             Container(
@@ -93,9 +73,6 @@ class _UserTicketsScreenState extends State<UserTicketsScreen> {
               color: bgColor,
               child: Column(
                 children: <Widget>[
-                  // EventContainer(),
-                  // EventContainer(),
-                  // EventContainer(),
                   // EventContainer(),
                 ],
               ),

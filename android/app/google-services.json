@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1063701536569",
-    "project_id": "eventureiti",
-    "storage_bucket": "eventureiti.appspot.com"
+    "project_number": "895967985464",
+    "project_id": "eventure-615c8",
+    "storage_bucket": "eventure-615c8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1063701536569:android:d95b0b302854a99ba692e8",
+        "mobilesdk_app_id": "1:895967985464:android:aea8c2c7835a99e44c4bcd",
         "android_client_info": {
           "package_name": "com.eventure"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBPWN4NiW-WeVQhFsaQDU7wraU56ovD8mA"
+          "current_key": "AIzaSyAIcIVmBL3WwXG8jJSiiaqo-g4vDlVPQfE"
         }
       ],
       "services": {
