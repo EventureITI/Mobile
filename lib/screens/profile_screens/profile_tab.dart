@@ -1,18 +1,87 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
 import 'package:eventure/screens/contact_screen.dart';
+import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/profile_screens/edit_profile_screen.dart';
 import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/profile_option.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
   @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
+  // final FirebaseAuthService _auth = FirebaseAuthService();
+  UserController userController = Get.put(UserController());
+  UserController controller = UserController();
+  final FirebaseAuthService database = FirebaseAuthService();
+    final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
+  // final iddd = FirebaseAuth.instance.currentUser?.uid;
+
+List<String> userId = [];
+
+
+
+String uFirstName = "";
+String ulastName = "";
+
+
+
+ Future<void> fetchUserData(String? email) async {
+  // FirestoreService firestoreService = FirestoreService();
+
+  // Fetch the user data by email
+    Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
+
+    if (userData != null) {
+      print('User Data: $userData');
+
+      uFirstName =userData['first_name'] ;
+      ulastName = userData['last_name'];
+      
+      controller.saveUserData(userData['first_name'], userData['last_name']);
+      print("${controller.fName.value} ${controller.lName.value}");
+    } else {
+      print('No user found or error occurred.');
+    }
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return FutureBuilder(
+      future: fetchUserData(userLoggedEmail), 
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot){
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Show a loading indicator while waiting for the Future to complete
+          return Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: bgColor,
+            child: Center(
+              child: CircularProgressIndicator(
+                color: btnColor,
+              ),
+            ),
+          );
+        }else if (snapshot.hasError) {
+          // Handle errors
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        }else{
+          return SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         width: MediaQuery.of(context).size.width,
@@ -36,18 +105,27 @@ class ProfileTab extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            CustomText(
-              text: "User Name",
-              color: Colors.white,
-              size: 25,
+            Obx(()=> userController.signed.value == true?
+              CustomText(
+                text: "${controller.fName.value} ${controller.lName.value}",
+                color: Colors.white,
+                size: 25,
+              )
+            :
+              CustomText(
+                text: "User Name",
+                color: Colors.white,
+                size: 25,
+              )
             ),
             SizedBox(
               height: 32,
             ),
             ProfileOption(
-                optionIcon: "assets/icons/ticket_outline.svg",
-                optionText: "Your Tickets",
-                nextScreen: UserTicketsScreen()),
+              action: (){},
+              optionIcon: "assets/icons/ticket_outline.svg",
+              optionText: "Your Tickets",
+              nextScreen: UserTicketsScreen()),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
               width: MediaQuery.of(context).size.width,
@@ -55,20 +133,51 @@ class ProfileTab extends StatelessWidget {
               color: inpBg,
             ),
             ProfileOption(
-                optionIcon: "assets/icons/acc.svg",
-                optionText: "Edit Profile",
-                nextScreen: EditProfileScreen()),
+              action: (){},
+              optionIcon: "assets/icons/acc.svg",
+              optionText: "Edit Profile",
+              nextScreen: EditProfileScreen()),
             ProfileOption(
-                optionIcon: "assets/icons/contact.svg",
-                optionText: "Contact Us",
-                nextScreen: ContactScreen()),
-            ProfileOption(
-                optionIcon: "assets/icons/logout.svg",
-                optionText: "Log Out",
-                nextScreen: UserTicketsScreen()),
+              action: (){},
+              optionIcon: "assets/icons/contact.svg",
+              optionText: "Contact Us",
+              nextScreen: ContactScreen()),
+            Obx(()=> userController.signed.value == true? ProfileOption(
+              action: (){
+                
+                // print(authUser);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.transparent,
+                    content: AwesomeSnackbarContent(
+                      color: btnColor,
+                      title: "Signed Out", 
+                      message: "succesful signed out, see you soon!!", 
+                      contentType: ContentType.success
+                    ),
+                  ),
+                );
+                // userController.fetchUser();
+                FirebaseAuth.instance.signOut();
+                userController.loggedOut();
+
+                print("USER SIGNED OUT");
+              },
+              optionIcon: "assets/icons/logout.svg",
+              optionText: "Log Out",
+              nextScreen: HomeScreen())
+              :
+              Container()
+              
+              )
           ],
         ),
       ),
     );
+        }
+      }
+    );
+    
+   
   }
 }

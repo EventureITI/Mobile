@@ -1,12 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/event_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -16,8 +20,32 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+    // final authUser = FirebaseAuth.instance.currentUser;
+  // User? authUser;
+  UserController userController = Get.put(UserController());
+  // final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
+  // List<String> userId = [];
+
+  
+
+  
+
+  // void thereIsEmail(){
+  //   if(userController.signed.value == false){
+  //     print("user not logged");
+  //   }else{
+  //     print("user logged with email $userLoggedEmail");
+  //     // getUserId();
+  //     // userController.getUserId(userId, userLoggedEmail);
+  //     print("user fireStore Id is $userId");
+  //   }
+  // }
+
+  
   @override
   Widget build(BuildContext context) {
+    // thereIsEmail();
+    // print("from builddddd user fireStore Id is $userId");
     return SafeArea(
       child: Container(
         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -30,7 +58,7 @@ class _HomeTabState extends State<HomeTab> {
               Container(
                 height: 48,
                 color: bgColor,
-                child: Row(
+                child: Obx(()=> userController.signed.value == false? Row(
                   children: <Widget>[
                     SvgPicture.asset(
                       "assets/icons/avatar_placeholder.svg",
@@ -49,7 +77,23 @@ class _HomeTabState extends State<HomeTab> {
                           color: Colors.white,
                         ))
                   ],
-                ),
+                )
+                :
+                Row(
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      "assets/icons/avatar_placeholder.svg",
+                    ),
+                  ],
+                )
+                
+                )
+                // authUser == null ?
+                
+                
+                //  
+                // :
+                 
               ),
 
               // banner
