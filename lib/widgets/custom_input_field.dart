@@ -1,7 +1,10 @@
 import 'package:eventure/utils/text_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CustomInputfield extends StatelessWidget {
+  FormFieldValidator<String>? validator;
+  TextEditingController? controller;
   TextInputType? inpType;
   String? label;
   bool? scure;
@@ -13,7 +16,9 @@ class CustomInputfield extends StatelessWidget {
       this.label,
       this.scure,
       this.suffixIcn,
-      this.inpType});
+      this.inpType,
+      this.validator,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +37,9 @@ class CustomInputfield extends StatelessWidget {
           height: 8,
         ),
         TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          validator: validator,
           keyboardType: inpType,
           obscureText: scure!,
           style: TextStyle(color: Colors.white),
@@ -40,6 +48,7 @@ class CustomInputfield extends StatelessWidget {
               fillColor: inpBg,
               hintText: hint,
               hintStyle: TextStyle(color: hintColor, fontSize: 14),
+              errorStyle: TextStyle(fontSize: 10),
               suffixIcon: suffixIcn,
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(15)),

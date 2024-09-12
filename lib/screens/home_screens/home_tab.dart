@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eventure/controllers/categories_controller.dart';
 import 'package:eventure/controllers/events_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/event_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -16,9 +19,12 @@ class HomeTab extends StatelessWidget {
   final EventsController eventsController = Get.put(EventsController());
   final CategoriesController categoriesController =
       Get.put(CategoriesController());
+  UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
+    // thereIsEmail();
+    // print("from builddddd user fireStore Id is $userId");
     return SafeArea(
       child: Container(
         padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -46,25 +52,39 @@ class HomeTab extends StatelessWidget {
                 return Column(
                   children: [
                     // login with avatar
+
                     Container(
-                      height: 48,
-                      color: bgColor,
-                      child: Row(
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            "assets/icons/avatar_placeholder.svg",
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                Get.to(() => LoginScreen());
-                              },
-                              child: CustomText(
-                                text: "Login",
-                                color: Colors.white,
+                        height: 48,
+                        color: bgColor,
+                        child: Obx(() => userController.signed.value == false
+                            ? Row(
+                                children: <Widget>[
+                                  SvgPicture.asset(
+                                    "assets/icons/avatar_placeholder.svg",
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.to(() => LoginScreen());
+                                      },
+                                      child: CustomText(
+                                        text: "Login",
+                                        color: Colors.white,
+                                      ))
+                                ],
+                              )
+                            : Row(
+                                children: <Widget>[
+                                  SvgPicture.asset(
+                                    "assets/icons/avatar_placeholder.svg",
+                                  ),
+                                ],
                               ))
-                        ],
-                      ),
-                    ),
+                        // authUser == null ?
+
+                        //
+                        // :
+
+                        ),
 
                     // banner
                     GestureDetector(

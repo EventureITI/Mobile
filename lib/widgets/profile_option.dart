@@ -7,16 +7,19 @@ class ProfileOption extends StatelessWidget {
   Widget nextScreen;
   String? optionIcon;
   String? optionText;
+  Function action;
   ProfileOption(
       {super.key,
       required this.optionIcon,
       required this.optionText,
-      required this.nextScreen});
+      required this.nextScreen,
+      required this.action});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        action();
         Get.to(() => nextScreen);
       },
       child: Container(
