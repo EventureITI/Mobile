@@ -261,14 +261,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                             _passwordController.text);
                                     if (user != null) {
                                       print("USER CREATED");
-
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute<void>(
-                                          builder: (BuildContext context) =>
-                                              HomeScreen(),
-                                        ),
-                                      );
+                                      Get.off(() => HomeScreen());
 
                                       addUserDetails(
                                         _firstNameController.text,

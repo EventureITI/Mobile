@@ -20,7 +20,11 @@ class EventsController extends GetxController {
     try {
       var events = await FirestoreService().getEvents();
       if (events.isNotEmpty) {
-        eventsList.assignAll(events);
+        // eventsList.assignAll(events);
+        // Filter events that are not deleted (isDeleted == false)
+        eventsList.assignAll(
+          events.where((event) => event.isDeleted == false).toList(),
+        );
       }
       print("Events fetched");
     } catch (e) {

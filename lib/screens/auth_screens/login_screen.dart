@@ -140,12 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               if (user != null) {
                                 print("USER LOGGED IN");
                                 print(user);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (BuildContext context) =>
-                                        HomeScreen(),
-                                  ),
+                                Get.off(
+                                  () => HomeScreen(),
                                 );
                                 // Get.off(()=>HomeScreen());
 
