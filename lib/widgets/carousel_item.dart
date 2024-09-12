@@ -8,12 +8,12 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 
 class CarouselItem extends StatelessWidget {
-  Event event;
-  RxList categories;
-  double? contHeight;
-  double? marginBtm;
+  final Event event;
+  final RxList categories;
+  final double? contHeight;
+  final double? marginBtm;
 
-  CarouselItem({
+  const CarouselItem({
     super.key,
     required this.event,
     required this.categories,

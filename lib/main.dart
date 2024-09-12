@@ -1,6 +1,5 @@
 import 'package:eventure/firebase_options.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
-import 'package:eventure/screens/onboarding_screens/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

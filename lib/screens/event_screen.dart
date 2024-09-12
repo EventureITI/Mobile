@@ -1,5 +1,4 @@
 import 'package:eventure/models/event.dart';
-import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/payment_screens/get_tickets_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +6,7 @@ import 'package:get/get.dart';
 
 class EventScreen extends StatelessWidget {
   EventScreen({super.key});
-  Event event = Get.arguments;
+  final Event event = Get.arguments;
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class Event {
@@ -65,7 +66,7 @@ class Event {
 
     return Event(
       id: documentId,
-      title: data['title'] ?? '',
+      title: data['title'].toString().capitalize ?? '',
       host: data['host'] ?? '',
       location: data['location'] ?? '',
       price: data['price'] ?? '',

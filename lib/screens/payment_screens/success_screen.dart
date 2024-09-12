@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
   PaymentSuccessScreen({super.key});
-  Map paymentDetails = Get.arguments;
+  final Map paymentDetails = Get.arguments;
 
   @override
   Widget build(BuildContext context) {

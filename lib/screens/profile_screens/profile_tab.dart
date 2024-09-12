@@ -1,5 +1,4 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/contact_screen.dart';

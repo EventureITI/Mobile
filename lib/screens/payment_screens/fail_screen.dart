@@ -1,5 +1,3 @@
-import 'package:eventure/screens/event_screen.dart';
-import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

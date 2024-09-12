@@ -4,11 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ProfileOption extends StatelessWidget {
-  Widget nextScreen;
-  String? optionIcon;
-  String? optionText;
-  Function action;
-  ProfileOption(
+  final Widget nextScreen;
+  final String? optionIcon;
+  final String? optionText;
+  final Function action;
+  const ProfileOption(
       {super.key,
       required this.optionIcon,
       required this.optionText,

@@ -1,4 +1,3 @@
-import 'package:eventure/screens/profile_screens/profile_tab.dart';
 import 'package:eventure/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CustomInputfield extends StatelessWidget {
-  FormFieldValidator<String>? validator;
-  TextEditingController? controller;
-  TextInputType? inpType;
-  String? label;
-  bool? scure;
-  Widget? suffixIcn;
-  String? hint;
-  CustomInputfield(
+  final FormFieldValidator<String>? validator;
+  final TextEditingController? controller;
+  final TextInputType? inpType;
+  final String? label;
+  final bool? scure;
+  final Widget? suffixIcn;
+  final String? hint;
+  const CustomInputfield(
       {super.key,
       this.hint,
       this.label,

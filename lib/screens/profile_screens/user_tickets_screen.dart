@@ -1,7 +1,5 @@
 import 'package:eventure/utils/text_colors.dart';
-import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/widgets/custom_text.dart';
-import 'package:eventure/widgets/event_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

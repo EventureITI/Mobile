@@ -1,5 +1,4 @@
 import 'package:eventure/models/event.dart';
-import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/screens/payment_screens/fail_screen.dart';
 import 'package:eventure/screens/payment_screens/success_screen.dart';
 import 'package:eventure/services/stripe_service.dart';
