@@ -18,7 +18,7 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
   int numberOfTickets = 1;
   late double totalPrice = double.parse(event.price);
 
-  _handlePaymentSuccess() {
+  handlePaymentSuccess() {
     Get.off(() => PaymentSuccessScreen(), arguments: {
       "event": event,
       "numberOfTickets": numberOfTickets,
@@ -26,7 +26,7 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
     });
   }
 
-  _handlePaymentFailure() {
+  handlePaymentFailure() {
     Get.off(() => PaymentFailScreen());
   }
 
@@ -213,8 +213,8 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
               onPressed: () {
                 StripeService.instance.makePayment(
                   totalPrice,
-                  _handlePaymentSuccess,
-                  _handlePaymentFailure,
+                  handlePaymentSuccess,
+                  handlePaymentFailure,
                 );
               },
               child: Row(

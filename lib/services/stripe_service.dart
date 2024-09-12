@@ -25,9 +25,7 @@ class StripeService {
       );
 
       // Display the payment sheet and process the payment
-      await _processPayment(onFailure);
-
-      onSuccess();
+      await _processPayment(onSuccess, onFailure);
     } catch (e) {
       print(e);
     }
@@ -63,10 +61,10 @@ class StripeService {
     return null;
   }
 
-  Future<void> _processPayment(Function onFailure) async {
+  Future<void> _processPayment(Function onSucces, Function onFailure) async {
     try {
       await Stripe.instance.presentPaymentSheet();
-      await Stripe.instance.confirmPaymentSheetPayment();
+      onSucces();
     } on StripeException catch (e) {
       // Catch Stripe exceptions
       if (e.error.code == FailureCode.Canceled) {
@@ -77,6 +75,7 @@ class StripeService {
       }
     } catch (e) {
       // Other errors in payment processing
+      onFailure();
       print(e);
     }
   }
