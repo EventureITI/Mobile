@@ -17,6 +17,8 @@ class CustomText extends StatelessWidget {
         fontSize: size ?? 16,
         fontWeight: ftWeight ?? FontWeight.w500,
       ),
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

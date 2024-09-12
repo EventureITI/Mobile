@@ -42,7 +42,7 @@ class EventContainer extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: EdgeInsets.only(left: 8, right: 8, bottom: 4),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +95,7 @@ class EventContainer extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.all(8),
                             width: MediaQuery.of(context).size.width / 4,
-                            height: 31,
+                            // height: 31,
                             decoration: BoxDecoration(
                                 color: btnColor,
                                 borderRadius: BorderRadius.circular(8)),

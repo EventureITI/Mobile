@@ -49,7 +49,10 @@ class CarouselItem extends StatelessWidget {
                             fit: BoxFit.cover)),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     width: MediaQuery.of(context).size.width,
                     height: 224,
                     decoration: BoxDecoration(
@@ -90,7 +93,7 @@ class CarouselItem extends StatelessWidget {
                           color: Colors.white,
                         ),
                         CustomText(
-                          text: event.host, //Omar El Gamal • Ahmed Amin
+                          text: event.host,
                         ),
                       ],
                     ),
@@ -107,70 +110,81 @@ class CarouselItem extends StatelessWidget {
                         bottomRight: Radius.circular(16)),
                     color: inpBg,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              CustomText(
-                                  text: "Date", size: 10, color: hintColor),
-                              CustomText(
-                                text: event.eventDate,
-                                size: 10,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              CustomText(
-                                text: "Time",
-                                size: 10,
-                                color: hintColor,
-                              ),
-                              CustomText(
-                                text: event.startTime,
-                                size: 10,
-                                color: Colors.white,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        width: MediaQuery.of(context).size.width / 4,
-                        height: 31,
-                        decoration: BoxDecoration(
-                            color: btnColor,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
-                            SvgPicture.asset(
-                              "assets/icons/ticket_fill.svg",
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CustomText(
+                                  text: "Date",
+                                  size: 12,
+                                  color: hintColor,
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                CustomText(
+                                  text: event.eventDate,
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              ],
                             ),
-                            // SizedBox(width: 8,),
-                            CustomText(
-                              text: "${event.price} EGP",
-                              color: Colors.white,
-                              size: 12,
-                            )
+                            SizedBox(
+                              width: 24,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                CustomText(
+                                  text: "Time",
+                                  size: 12,
+                                  color: hintColor,
+                                ),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                CustomText(
+                                  text: event.startTime,
+                                  size: 12,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      )
-                    ],
+                        Spacer(),
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          width: MediaQuery.of(context).size.width / 4,
+                          decoration: BoxDecoration(
+                              color: btnColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              SvgPicture.asset(
+                                "assets/icons/ticket_fill.svg",
+                              ),
+                              // SizedBox(width: 8,),
+                              CustomText(
+                                text: "${event.price} EGP",
+                                color: Colors.white,
+                                size: 12,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ))
           ],
