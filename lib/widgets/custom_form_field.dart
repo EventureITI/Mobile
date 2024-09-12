@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget customFormField(String label, String hint, {int maxLines = 1}) {
+Widget customFormField(
+    String label, String hint, TextEditingController controller,
+    {int maxLines = 1, String? Function(String?)? validator}) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 24.0),
     child: Column(
@@ -15,8 +17,11 @@ Widget customFormField(String label, String hint, {int maxLines = 1}) {
           ),
         ),
         SizedBox(height: 8.0),
-        TextField(
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
           maxLines: maxLines,
+          validator: validator,
           decoration: InputDecoration(
             hintText: hint,
             border: OutlineInputBorder(
