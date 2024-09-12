@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
+import 'package:eventure/services/auth_service.dart';
 import 'package:get/get.dart';
 
-class UserController extends GetxController{
-
+class UserController extends GetxController {
   RxString fName = "".obs;
   RxString lName = "".obs;
 
@@ -17,14 +16,13 @@ class UserController extends GetxController{
     signed = false.obs;
   }
 
-  void saveUserData(String fn, String ln){
+  void saveUserData(String fn, String ln) {
     fName = fn.obs;
     lName = ln.obs;
   }
 
-  void defaultData(){
-    fName="".obs;
+  void defaultData() {
+    fName = "".obs;
     lName = "".obs;
   }
-
 }

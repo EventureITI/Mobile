@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
+import 'package:eventure/services/auth_service.dart';
+import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/profile_screens/profile_tab.dart';
@@ -24,7 +24,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final FirebaseAuthService database = FirebaseAuthService();
+  final AuthService database = AuthService();
   late Future<DocumentSnapshot> userData;
   bool _obscureText = true;
   bool _obscureTextConf = true;

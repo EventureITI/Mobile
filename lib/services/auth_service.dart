@@ -2,40 +2,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class FirebaseAuthService{
+class AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
-
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async{
-
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential credential =await _auth.createUserWithEmailAndPassword(
-        email: email, 
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+        email: email,
         password: password,
-        );
+      );
       return credential.user;
-      
     } catch (e) {
       print("error occured");
     }
     return null;
-
   }
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async{
-
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential credential =await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return credential.user;
-      
     } catch (e) {
       print("error occured");
     }
     return null;
-
   }
-  
+
   Future<Map<String, dynamic>?> getUserDataByEmail(String? email) async {
     try {
       // Query Firestore to get the user data based on the email field
@@ -60,6 +56,4 @@ class FirebaseAuthService{
       return null;
     }
   }
-
-
 }

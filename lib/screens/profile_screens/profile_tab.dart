@@ -1,7 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
+import 'package:eventure/services/auth_service.dart';
+import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/contact_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/profile_screens/edit_profile_screen.dart';
@@ -25,31 +25,27 @@ class _ProfileTabState extends State<ProfileTab> {
   // final FirebaseAuthService _auth = FirebaseAuthService();
   UserController userController = Get.put(UserController());
   UserController controller = UserController();
-  final FirebaseAuthService database = FirebaseAuthService();
-    final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
+  final AuthService database = AuthService();
+  final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
   // final iddd = FirebaseAuth.instance.currentUser?.uid;
 
-List<String> userId = [];
+  List<String> userId = [];
 
+  String uFirstName = "";
+  String ulastName = "";
 
+  Future<void> fetchUserData(String? email) async {
+    // FirestoreService firestoreService = FirestoreService();
 
-String uFirstName = "";
-String ulastName = "";
-
-
-
- Future<void> fetchUserData(String? email) async {
-  // FirestoreService firestoreService = FirestoreService();
-
-  // Fetch the user data by email
+    // Fetch the user data by email
     Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
 
     if (userData != null) {
       print('User Data: $userData');
 
-      uFirstName =userData['first_name'] ;
+      uFirstName = userData['first_name'];
       ulastName = userData['last_name'];
-      
+
       controller.saveUserData(userData['first_name'], userData['last_name']);
       print("${controller.fName.value} ${controller.lName.value}");
     } else {
@@ -57,127 +53,119 @@ String ulastName = "";
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchUserData(userLoggedEmail), 
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Show a loading indicator while waiting for the Future to complete
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: bgColor,
-            child: Center(
-              child: CircularProgressIndicator(
-                color: btnColor,
-              ),
-            ),
-          );
-        }else if (snapshot.hasError) {
-          // Handle errors
-          return Center(
-            child: Text('Error: ${snapshot.error}'),
-          );
-        }else{
-          return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: bgColor,
-        child: Column(
-          children: <Widget>[
-            CustomText(
-              text: "Profile",
-              color: Colors.white,
-              size: 22,
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            SvgPicture.asset(
-              "assets/icons/avatar_placeholder.svg",
-              height: 96,
-              width: 96,
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Obx(()=> userController.signed.value == true?
-              CustomText(
-                text: "${controller.fName.value} ${controller.lName.value}",
-                color: Colors.white,
-                size: 25,
-              )
-            :
-              CustomText(
-                text: "User Name",
-                color: Colors.white,
-                size: 25,
-              )
-            ),
-            SizedBox(
-              height: 32,
-            ),
-            ProfileOption(
-              action: (){},
-              optionIcon: "assets/icons/ticket_outline.svg",
-              optionText: "Your Tickets",
-              nextScreen: UserTicketsScreen()),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
+        future: fetchUserData(userLoggedEmail),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator while waiting for the Future to complete
+            return Container(
               width: MediaQuery.of(context).size.width,
-              height: 1,
-              color: inpBg,
-            ),
-            ProfileOption(
-              action: (){},
-              optionIcon: "assets/icons/acc.svg",
-              optionText: "Edit Profile",
-              nextScreen: EditProfileScreen()),
-            ProfileOption(
-              action: (){},
-              optionIcon: "assets/icons/contact.svg",
-              optionText: "Contact Us",
-              nextScreen: ContactScreen()),
-            Obx(()=> userController.signed.value == true? ProfileOption(
-              action: (){
-                
-                // print(authUser);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(
-                      color: btnColor,
-                      title: "Signed Out", 
-                      message: "succesful signed out, see you soon!!", 
-                      contentType: ContentType.success
+              height: MediaQuery.of(context).size.height,
+              color: bgColor,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: btnColor,
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            // Handle errors
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            return SafeArea(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: bgColor,
+                child: Column(
+                  children: <Widget>[
+                    CustomText(
+                      text: "Profile",
+                      color: Colors.white,
+                      size: 22,
                     ),
-                  ),
-                );
-                // userController.fetchUser();
-                FirebaseAuth.instance.signOut();
-                userController.loggedOut();
+                    SizedBox(
+                      height: 32,
+                    ),
+                    SvgPicture.asset(
+                      "assets/icons/avatar_placeholder.svg",
+                      height: 96,
+                      width: 96,
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Obx(() => userController.signed.value == true
+                        ? CustomText(
+                            text:
+                                "${controller.fName.value} ${controller.lName.value}",
+                            color: Colors.white,
+                            size: 25,
+                          )
+                        : CustomText(
+                            text: "User Name",
+                            color: Colors.white,
+                            size: 25,
+                          )),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    ProfileOption(
+                        action: () {},
+                        optionIcon: "assets/icons/ticket_outline.svg",
+                        optionText: "Your Tickets",
+                        nextScreen: UserTicketsScreen()),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      width: MediaQuery.of(context).size.width,
+                      height: 1,
+                      color: inpBg,
+                    ),
+                    ProfileOption(
+                        action: () {},
+                        optionIcon: "assets/icons/acc.svg",
+                        optionText: "Edit Profile",
+                        nextScreen: EditProfileScreen()),
+                    ProfileOption(
+                        action: () {},
+                        optionIcon: "assets/icons/contact.svg",
+                        optionText: "Contact Us",
+                        nextScreen: ContactScreen()),
+                    Obx(() => userController.signed.value == true
+                        ? ProfileOption(
+                            action: () {
+                              // print(authUser);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.transparent,
+                                  content: AwesomeSnackbarContent(
+                                      color: btnColor,
+                                      title: "Signed Out",
+                                      message:
+                                          "succesful signed out, see you soon!!",
+                                      contentType: ContentType.success),
+                                ),
+                              );
+                              // userController.fetchUser();
+                              FirebaseAuth.instance.signOut();
+                              userController.loggedOut();
 
-                print("USER SIGNED OUT");
-              },
-              optionIcon: "assets/icons/logout.svg",
-              optionText: "Log Out",
-              nextScreen: HomeScreen())
-              :
-              Container()
-              
-              )
-          ],
-        ),
-      ),
-    );
-        }
-      }
-    );
-    
-   
+                              print("USER SIGNED OUT");
+                            },
+                            optionIcon: "assets/icons/logout.svg",
+                            optionText: "Log Out",
+                            nextScreen: HomeScreen())
+                        : Container())
+                  ],
+                ),
+              ),
+            );
+          }
+        });
   }
 }

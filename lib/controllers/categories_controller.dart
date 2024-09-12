@@ -1,6 +1,6 @@
+import 'package:eventure/services/firestore_service.dart';
 import 'package:get/get.dart';
 import 'package:eventure/models/category.dart';
-import 'package:eventure/services/firebase_service.dart';
 
 class CategoriesController extends GetxController {
   // Observable list for categories

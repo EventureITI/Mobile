@@ -1,5 +1,5 @@
 import 'package:eventure/models/event.dart';
-import 'package:eventure/services/firebase_service.dart';
+import 'package:eventure/services/firestore_service.dart';
 import 'package:get/get.dart';
 
 class EventsController extends GetxController {

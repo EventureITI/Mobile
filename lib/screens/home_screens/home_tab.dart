@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eventure/controllers/categories_controller.dart';
 import 'package:eventure/controllers/events_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
+import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/event_screen.dart';
 import 'package:eventure/widgets/carousel_item.dart';

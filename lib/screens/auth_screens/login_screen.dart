@@ -1,6 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
-import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
+import 'package:eventure/services/auth_service.dart';
+import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/auth_screens/signup_screen.dart';
 import 'package:eventure/utils/validators.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   List<String> loginForm = [];
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final FirebaseAuthService _auth = FirebaseAuthService();
+  final AuthService _auth = AuthService();
 
   UserController userController = Get.put(UserController());
 
