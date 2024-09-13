@@ -39,7 +39,7 @@ class AuthService {
     try {
       // Query Firestore to get the user data based on the email field
       QuerySnapshot querySnapshot = await _db
-          .collection('user') // Replace with your collection name
+          .collection('users') // Replace with your collection name
           .where('email', isEqualTo: email)
           .limit(1) // Limit to 1 to ensure only one document is retrieved
           .get();
@@ -64,7 +64,7 @@ class AuthService {
       String? email, String firstName, String lastName) async {
     // Query Firestore to get the user by email
     QuerySnapshot userSnapshot = await FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .where('email', isEqualTo: email)
         .get();
 

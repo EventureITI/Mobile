@@ -38,8 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Future addUserDetails(
       String firstName, String lastName, String userEmail) async {
-    // await FirebaseFirestore.instance.collection("Users").add({
-    await FirebaseFirestore.instance.collection("user").add({
+    await FirebaseFirestore.instance.collection("users").add({
       'firstName': firstName,
       'lastName': lastName,
       'email': userEmail,
