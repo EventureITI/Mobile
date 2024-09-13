@@ -84,7 +84,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       height: 32,
                     ),
                     SvgPicture.asset(
-                      "assets/icons/avatar_placeholder.svg",
+                      "images/carbon_user-avatar-filled.svg",
                       height: 96,
                       width: 96,
                     ),

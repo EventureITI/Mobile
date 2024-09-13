@@ -87,7 +87,7 @@ class HomeTab extends StatelessWidget {
                             ? Row(
                                 children: <Widget>[
                                   SvgPicture.asset(
-                                    "assets/icons/avatar_placeholder.svg",
+                                    "images/carbon_user-avatar-filled.svg",
                                   ),
                                   TextButton(
                                       onPressed: () {
