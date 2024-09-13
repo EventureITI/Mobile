@@ -1,10 +1,11 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/controllers/user_controller.dart';
+import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/contact_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/screens/profile_screens/edit_profile_screen.dart';
 import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
+import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/profile_option.dart';
@@ -30,23 +31,14 @@ class _ProfileTabState extends State<ProfileTab> {
 
   List<String> userId = [];
 
-  String uFirstName = "";
-  String ulastName = "";
-
   Future<void> fetchUserData(String? email) async {
-    // FirestoreService firestoreService = FirestoreService();
-
-    // Fetch the user data by email
     Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
 
     if (userData != null) {
       print('User Data: $userData');
 
-      uFirstName = userData['first_name'];
-      ulastName = userData['last_name'];
-
-      controller.saveUserData(userData['first_name'], userData['last_name']);
-      print("${controller.fName.value} ${controller.lName.value}");
+      userController.saveUserData(userData['firstName'], userData['lastName']);
+      // print("${controller.fName.value} ${controller.lName.value}");
     } else {
       print('No user found or error occurred.');
     }
@@ -99,39 +91,63 @@ class _ProfileTabState extends State<ProfileTab> {
                     SizedBox(
                       height: 16,
                     ),
-                    Obx(() => userController.signed.value == true
-                        ? CustomText(
-                            text:
-                                "${controller.fName.value} ${controller.lName.value}",
-                            color: Colors.white,
-                            size: 25,
-                          )
-                        : CustomText(
-                            text: "User Name",
-                            color: Colors.white,
-                            size: 25,
-                          )),
+                    Obx(
+                      () => userController.signed.value == true
+                          ? CustomText(
+                              text:
+                                  "${userController.fName.value} ${userController.lName.value}"
+                                      .capitalize,
+                              color: Colors.white,
+                              size: 25,
+                            )
+                          : SizedBox(
+                              width: MediaQuery.of(context).size.width / 3,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Get.to(() => LoginScreen());
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: btnColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15))),
+                                child: CustomText(
+                                  text: "Login",
+                                  color: Colors.white,
+                                  ftWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                    ),
                     SizedBox(
                       height: 32,
                     ),
+                    Obx(() => userController.signed.value == true
+                        ? ProfileOption(
+                            action: () {},
+                            optionIcon: "assets/icons/ticket_outline.svg",
+                            optionText: "Your Tickets",
+                            nextScreen: UserTicketsScreen())
+                        : Container()),
+                    Obx(() => userController.signed.value == true
+                        ? Container(
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                            width: MediaQuery.of(context).size.width,
+                            height: 1,
+                            color: inpBg,
+                          )
+                        : Container()),
+                    Obx(() => userController.signed.value == true
+                        ? ProfileOption(
+                            action: () {},
+                            optionIcon: "assets/icons/acc.svg",
+                            optionText: "Edit Profile",
+                            nextScreen: EditProfileScreen())
+                        : Container()),
                     ProfileOption(
-                        action: () {},
-                        optionIcon: "assets/icons/ticket_outline.svg",
-                        optionText: "Your Tickets",
-                        nextScreen: UserTicketsScreen()),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      width: MediaQuery.of(context).size.width,
-                      height: 1,
-                      color: inpBg,
-                    ),
-                    ProfileOption(
-                        action: () {},
-                        optionIcon: "assets/icons/acc.svg",
-                        optionText: "Edit Profile",
-                        nextScreen: EditProfileScreen()),
-                    ProfileOption(
-                        action: () {},
+                        action: () {
+                          // Get.to(()=> ContactScreen());
+                        },
                         optionIcon: "assets/icons/contact.svg",
                         optionText: "Contact Us",
                         nextScreen: ContactScreen()),
@@ -153,6 +169,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               // userController.fetchUser();
                               FirebaseAuth.instance.signOut();
                               userController.loggedOut();
+                              userController.defaultData();
 
                               print("USER SIGNED OUT");
                             },

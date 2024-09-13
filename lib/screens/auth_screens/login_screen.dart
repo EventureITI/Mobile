@@ -1,7 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/controllers/user_controller.dart';
+import 'package:eventure/screens/auth_screens/forget_password_screen.dart';
 import 'package:eventure/screens/auth_screens/signup_screen.dart';
+import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/utils/validators.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
 import 'package:eventure/utils/text_colors.dart';
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: MediaQuery.of(context).size.height,
             color: bgColor,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround, // TODO: UX died
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 CustomText(
                   text: "Login",
@@ -114,7 +115,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: MediaQuery.of(context).size.width,
                             alignment: AlignmentDirectional.centerEnd,
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(() => ForgetPasswordScreen());
+                              },
                               child: CustomText(text: "Forgot password?"),
                             ),
                           )

@@ -36,13 +36,15 @@ class _SignupScreenState extends State<SignupScreen> {
 
   UserController userController = Get.put(UserController());
 
-  Future addUserDetails(String firstName, String lastName, String userEmail,
-      String userPassword) async {
-    await FirebaseFirestore.instance.collection("Users").add({
-      'first_name': firstName,
-      'last_name': lastName,
+  Future addUserDetails(
+      String firstName, String lastName, String userEmail) async {
+    // await FirebaseFirestore.instance.collection("Users").add({
+    await FirebaseFirestore.instance.collection("user").add({
+      'firstName': firstName,
+      'lastName': lastName,
       'email': userEmail,
-      'password': userPassword,
+      'role': 'user'
+      // 'password': userPassword,
     });
   }
 
@@ -261,13 +263,21 @@ class _SignupScreenState extends State<SignupScreen> {
                                             _passwordController.text);
                                     if (user != null) {
                                       print("USER CREATED");
-                                      Get.off(() => HomeScreen());
+                                      userController.loggedIn();
+
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute<void>(
+                                          builder: (BuildContext context) =>
+                                              HomeScreen(),
+                                        ),
+                                      );
 
                                       addUserDetails(
                                         _firstNameController.text,
                                         _lastNameController.text,
                                         _emailController.text,
-                                        _passwordController.text,
+                                        // _passwordController.text,
                                       );
 
                                       ScaffoldMessenger.of(context)
