@@ -173,7 +173,7 @@ class EventScreen extends StatelessWidget {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF4FE0D2),
+                backgroundColor: Color(0xFF13B8A8),
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

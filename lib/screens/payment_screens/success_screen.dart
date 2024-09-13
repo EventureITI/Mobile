@@ -60,11 +60,11 @@ class PaymentSuccessScreen extends StatelessWidget {
                         Get.off(() => UserTicketsScreen());
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor: Color(0xFF4FE0D2),
+                        backgroundColor: Color(0xFF13B8A8),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: BorderSide(
-                              color: Color(0xFF4FE0D2),
+                              color: Color(0xFF13B8A8),
                               width: 1,
                             )),
                       ),
@@ -92,7 +92,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                           side: BorderSide(
-                            color: Color(0xFF4FE0D2),
+                            color: Color(0xFF13B8A8),
                             width: 1,
                           ),
                         ),

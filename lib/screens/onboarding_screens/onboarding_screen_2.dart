@@ -63,7 +63,7 @@ class OnboardingScreen2 extends StatelessWidget {
                       );
                     },
                     style: TextButton.styleFrom(
-                      backgroundColor: Color(0xFF4FE0D2),
+                      backgroundColor: Color(0xFF13B8A8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
