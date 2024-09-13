@@ -10,6 +10,8 @@ class CustomInputfield extends StatelessWidget {
   bool? scure;
   Widget? suffixIcn;
   String? hint;
+  bool? disable;
+  Color? disableClr;
   CustomInputfield(
       {super.key,
       this.hint,
@@ -18,7 +20,10 @@ class CustomInputfield extends StatelessWidget {
       this.suffixIcn,
       this.inpType,
       this.validator,
-      this.controller});
+      this.controller,
+      this.disable,
+      this.disableClr
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +42,14 @@ class CustomInputfield extends StatelessWidget {
           height: 8,
         ),
         TextFormField(
+          
+          readOnly: disable?? false,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
           validator: validator,
           keyboardType: inpType,
           obscureText: scure!,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: disableClr?? Colors.white),
           decoration: InputDecoration(
               filled: true,
               fillColor: inpBg,

@@ -3,9 +3,10 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
 import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
-import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
-import 'package:eventure/screens/profile_screens/profile_tab.dart';
+// import 'package:eventure/screens/auth_screens/login_screen.dart';
+// import 'package:eventure/screens/home_screens/home_screen.dart';
+// import 'package:eventure/screens/profile_screens/profile_tab.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/utils/validators.dart';
 import 'package:eventure/widgets/custom_input_field.dart';
@@ -33,6 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
 
   UserController controller = UserController();
+  
 
   String passStorage = "";
   dynamic userrIddd = null;
@@ -44,6 +46,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _confPasswordController = TextEditingController();
 
   final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
+
+  // for updating password cases
+  // final updatingPassword = FirebaseAuth.instance.currentUser!;
+  
+
+  // bool _isLoading = false;
+
+
+
+  Future<void> updateUserData(String firstName, String lastName,String oldPass, String newPass) async {
+    await database.updateUserProfileByEmail(userLoggedEmail, firstName, lastName);
+
+  // Then, re-authenticate and update the password by email
+  // await updatePasswordByEmail(email, oldPassword, newPassword);
+    await database.updateUserPassword(_emailController.text, oldPass, newPass);
+    // await updatingPassword.updatePassword(newPassword);
+  }
 
   List<String> userId = [];
   Map<dynamic, dynamic> userDetails = {};
@@ -82,8 +101,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     if (userData != null) {
       print('User Data: $userData');
-      _firstNameController.text = userData['first_name'];
-      _lastNameController.text = userData['last_name'];
+      _firstNameController.text = userData['firstName'];
+      _lastNameController.text = userData['lastName'];
       _emailController.text = userData['email'];
     } else {
       print('No user found or error occurred.');
@@ -172,7 +191,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               //TODO: smaller width
                               Container(
                                 width: MediaQuery.of(context).size.width / 2.4,
-                                height: MediaQuery.of(context).size.height / 9,
+                                height: MediaQuery.of(context).size.height / 7.5,
                                 child: CustomInputfield(
                                   controller: _firstNameController,
                                   label: "First Name",
@@ -194,7 +213,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width / 2.4,
-                                height: MediaQuery.of(context).size.height / 9,
+                                height: MediaQuery.of(context).size.height / 7.5,
                                 child: CustomInputfield(
                                   controller: _lastNameController,
                                   label: "Last Name",
@@ -216,27 +235,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
+                          // SizedBox(height: 8),
                           CustomInputfield(
+                            disable: true,
+                            disableClr: hintColor,
                             controller: _emailController,
                             label: "Email",
                             hint: "example@mail.com",
                             scure: false,
                             inpType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Email is required";
-                              } else if (!emailRegExp.hasMatch(value)) {
-                                return "Please, Enter a valid Email";
-                              } else {
-                                return null;
-                              }
-                            },
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return "Email is required";
+                            //   } else if (!emailRegExp.hasMatch(value)) {
+                            //     return "Please, Enter a valid Email";
+                            //   } else {
+                            //     return null;
+                            //   }
+                            // },
                           ),
                           SizedBox(height: 24),
                           CustomInputfield(
                             hint: "*********",
-                            label: "Password",
+                            label: "OLd Password",
                             scure: _obscureText,
                             controller: _passwordController,
                             suffixIcn: IconButton(
@@ -254,8 +275,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               } else if (value.length < 6) {
                                 return "Password must be at least 6 characters";
                               } else {
-                                passStorage = value;
-                                print(passStorage);
+                                // passStorage = value;
+                                // print(passStorage);
                                 return null;
                               }
                             },
@@ -263,7 +284,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(height: 24),
                           CustomInputfield(
                             hint: "*********",
-                            label: "Confirm Password",
+                            label: "New Password",
                             scure: _obscureTextConf,
                             controller: _confPasswordController,
                             suffixIcn: IconButton(
@@ -278,20 +299,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Confirm Password is required";
-                              } else if (value != passStorage) {
-                                return "Sorry, Not matched Password";
+                              } else if (value.length < 6) {
+                                return "Password must be at least 6 characters";
                               } else {
                                 return null;
                               }
                             },
                           ),
                           SizedBox(height: 24),
+
+                          // _isLoading ? CircularProgressIndicator(color: btnColor,)
+                          // :
                           SizedBox(
                             width: MediaQuery.of(context).size.width,
                             height: 48,
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
+                                  updateUserData(
+                                    _firstNameController.text, 
+                                    _lastNameController.text, 
+                                    _passwordController.text, 
+                                    _confPasswordController.text
+                                  );
+                                  // Get.back();
+                                  Get.off(()=> HomeScreen());
+                                  
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       backgroundColor: Colors.transparent,
@@ -302,8 +335,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                               "succesful process, all changes done!!",
                                           contentType: ContentType.success),
                                     ),
-                                  );
-                                } else {
+                                  ); 
+                                }else{
                                   print("error occured");
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -315,7 +348,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                           contentType: ContentType.failure),
                                     ),
                                   );
-                                }
+                                } 
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: btnColor,

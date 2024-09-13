@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+
+UserController userControlling = Get.put(UserController());
 
 class FirebaseAuthService{
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -40,7 +44,7 @@ class FirebaseAuthService{
     try {
       // Query Firestore to get the user data based on the email field
       QuerySnapshot querySnapshot = await _db
-          .collection('Users') // Replace with your collection name
+          .collection('user') // Replace with your collection name
           .where('email', isEqualTo: email)
           .limit(1) // Limit to 1 to ensure only one document is retrieved
           .get();
@@ -60,6 +64,50 @@ class FirebaseAuthService{
       return null;
     }
   }
+
+
+  Future<void> updateUserProfileByEmail(String? email, String firstName, String lastName) async {
+  // Query Firestore to get the user by email
+  QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+      .collection('user')
+      .where('email', isEqualTo: email)
+      .get();
+
+  // Check if user exists
+  if (userSnapshot.docs.isNotEmpty) {
+    // Assuming that email is unique and there's only one user with this email
+    DocumentSnapshot userDoc = userSnapshot.docs.first;
+    DocumentReference userRef = userDoc.reference;
+
+    // Update the first name and last name
+    await userRef.update({
+      'firstName': firstName,
+      'lastName': lastName,
+    });
+    print('Profile updated successfully');
+    userControlling.saveUserData(firstName, lastName);
+  } else {
+    print('User not found with this email');
+  }
+}
+
+
+Future<void> updateUserPassword(String email, String oldPassword, String newPassword) async {
+  try {
+    // Sign in the user to re-authenticate (required for password updates)
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: oldPassword,
+    );
+
+    // If re-authentication is successful, update the password
+    User? user = userCredential.user;
+    await user!.updatePassword(newPassword);
+    print('Password updated successfully');
+  } catch (e) {
+    print('Failed to update password: $e');
+  }
+}
 
 
 }

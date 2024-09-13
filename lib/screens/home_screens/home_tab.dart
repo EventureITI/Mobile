@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eventure/controllers/categories_controller.dart';
 import 'package:eventure/controllers/events_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventure/screens/auth_screens/firebase_auth_impl/firebase_services.dart';
 import 'package:eventure/screens/auth_screens/firebase_auth_impl/user_controller.dart';
 import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/event_screen.dart';
@@ -20,6 +21,26 @@ class HomeTab extends StatelessWidget {
   final CategoriesController categoriesController =
       Get.put(CategoriesController());
   UserController userController = Get.put(UserController());
+  UserController controller = UserController();
+  final FirebaseAuthService database = FirebaseAuthService();
+
+  // Future<void> fetchUserData(String? email) async {
+  //   Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
+
+  //   if (userData != null) {
+  //     print('User Data: $userData');
+
+  //     // String uFirstName =userData['first_name'] ;
+  //     // String ulastName = userData['last_name'];
+      
+  //     userController.saveUserData(userData['firstName'], userData['lastName']);
+  //     // print("${userController.fName.value} ${userController.lName.value}");
+  //   } else {
+  //     print('No user found or error occurred.');
+  //   }
+  // }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +66,17 @@ class HomeTab extends StatelessWidget {
 
                 // empty state
                 if (eventsList.isEmpty) {
-                  return Center(child: Text("No events available"));
+                  // return Center(child: Text("No events available"));
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: bgColor,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: btnColor,
+                      ),
+                    ),
+                  );
                 }
 
                 // fulfilled state
@@ -77,6 +108,7 @@ class HomeTab extends StatelessWidget {
                                   SvgPicture.asset(
                                     "assets/icons/avatar_placeholder.svg",
                                   ),
+                                  CustomText(text: "${controller.fName.value}")
                                 ],
                               ))
                         // authUser == null ?
