@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
@@ -15,12 +16,34 @@ class UserController extends GetxController {
   }
 
   void saveUserData(String fn, String ln) {
-    fName = fn.obs;
-    lName = ln.obs;
+    fName.value = fn;
+    lName.value = ln;
   }
 
   void defaultData() {
     fName = "".obs;
     lName = "".obs;
+  }
+
+
+  // ------------------ New Code ----------------------
+  var profilePictureUrl = ''.obs;
+
+  // Fetch profile picture by email from Firestore
+  void fetchProfilePictureByEmail(String? email) async {
+    QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (userSnapshot.docs.isNotEmpty) {
+      DocumentSnapshot userDoc = userSnapshot.docs.first;
+      profilePictureUrl.value = userDoc['profilePictureUrl'] ?? '';
+    }
+  }
+
+  // Update profile picture URL in the state
+  void updateProfilePicture(String url) {
+    profilePictureUrl.value = url;
   }
 }
