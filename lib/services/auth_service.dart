@@ -86,6 +86,33 @@ class AuthService {
     }
   }
 
+  Future<void> addUserEventByEmail(
+      String? email, Map<String, dynamic> newEvent) async {
+    QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (userSnapshot.docs.isNotEmpty) {
+      DocumentSnapshot userDoc = userSnapshot.docs.first;
+      DocumentReference userRef = userDoc.reference;
+
+      // Retrieve current events
+      List<dynamic> currentEvents = userDoc.get('events') ?? [];
+
+      // Add new event
+      currentEvents.add(newEvent);
+
+      await userRef.update({
+        'events': currentEvents,
+      });
+
+      print('Event added successfully');
+    } else {
+      print('User not found with this email');
+    }
+  }
+
   Future<void> updateUserPassword(
       String email, String oldPassword, String newPassword) async {
     try {

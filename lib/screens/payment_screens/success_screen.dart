@@ -1,19 +1,13 @@
-import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/profile_screens/user_tickets_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
-  PaymentSuccessScreen({super.key});
-  final Map paymentDetails = Get.arguments;
+  const PaymentSuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Event event = paymentDetails["event"];
-    final int numberOfTickets = paymentDetails["numberOfTickets"];
-    final double totalPrice = paymentDetails["totalPrice"];
-
     return Scaffold(
       backgroundColor: Color(0xFF151515),
       body: SafeArea(
@@ -33,7 +27,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 32),
                   Text(
-                    "Payment Successful\n${event.title}\nTickets x${numberOfTickets}\n${totalPrice} EGP",
+                    "Payment Successful EGP",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,

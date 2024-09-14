@@ -1,7 +1,9 @@
 import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/payment_screens/fail_screen.dart';
 import 'package:eventure/screens/payment_screens/success_screen.dart';
+import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/services/stripe_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -17,13 +19,19 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
   Event event = Get.arguments;
   int numberOfTickets = 1;
   late double totalPrice = double.parse(event.price);
+  final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
+  final AuthService database = AuthService();
 
-  handlePaymentSuccess() {
-    Get.off(() => PaymentSuccessScreen(), arguments: {
-      "event": event,
+  handlePaymentSuccess() async {
+    Map<String, dynamic> eventDetails = {
+      "id": event.id,
+      "title": event.title,
       "numberOfTickets": numberOfTickets,
-      "totalPrice": totalPrice,
-    });
+      "totalPrice": totalPrice
+    };
+    await database.addUserEventByEmail(userLoggedEmail, eventDetails);
+
+    Get.off(() => PaymentSuccessScreen());
   }
 
   handlePaymentFailure() {
@@ -40,6 +48,7 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(userLoggedEmail);
     return Scaffold(
       appBar: AppBar(
         title: Text('Get a Ticket',

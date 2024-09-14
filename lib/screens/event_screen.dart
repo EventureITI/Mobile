@@ -1,5 +1,7 @@
 import 'package:eventure/models/event.dart';
+import 'package:eventure/screens/auth_screens/login_screen.dart';
 import 'package:eventure/screens/payment_screens/get_tickets_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,8 @@ import 'package:get/get.dart';
 class EventScreen extends StatelessWidget {
   EventScreen({super.key});
   final Event event = Get.arguments;
+
+  final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +184,11 @@ class EventScreen extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Get.to(() => GetTicketScreen(), arguments: event);
+                if (userLoggedEmail == null) {
+                  Get.to(() => LoginScreen(), arguments: event);
+                } else {
+                  Get.to(() => GetTicketScreen(), arguments: event);
+                }
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
