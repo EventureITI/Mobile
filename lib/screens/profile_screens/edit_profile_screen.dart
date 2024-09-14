@@ -3,6 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eventure/controllers/user_controller.dart';
 import 'package:eventure/screens/home_screens/home_screen.dart';
+import 'package:eventure/screens/profile_screens/new_password_screen.dart';
 import 'package:eventure/services/auth_service.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/utils/validators.dart';
@@ -49,13 +50,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   // bool _isLoading = false;
 
   Future<void> updateUserData(
-      String firstName, String lastName, String oldPass, String newPass) async {
-    await database.updateUserProfileByEmail(
-        userLoggedEmail, firstName, lastName);
+    String firstName, String lastName) async {
+      await database.updateUserProfileByEmail( userLoggedEmail, firstName, lastName);
 
     // Then, re-authenticate and update the password by email
     // await updatePasswordByEmail(email, oldPassword, newPassword);
-    await database.updateUserPassword(_emailController.text, oldPass, newPass);
+    // await database.updateUserPassword(_emailController.text, oldPass, newPass);
     // await updatingPassword.updatePassword(newPassword);
   }
 
@@ -163,7 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             },
                             child: _image == null
                                 ? SvgPicture.asset(
-                                    "assets/icons/avatar_placeholder.svg",
+                                    "images/carbon_user-avatar-filled.svg",
                                     height: 180,
                                     width: 180,
                                   )
@@ -252,56 +252,79 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             // },
                           ),
                           SizedBox(height: 24),
-                          CustomInputfield(
-                            hint: "*********",
-                            label: "OLd Password",
-                            scure: _obscureText,
-                            controller: _passwordController,
-                            suffixIcn: IconButton(
-                              icon: Icon(_obscureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () {
-                                togglePwVisiblity();
+                          // CustomInputfield(
+                          //   hint: "*********",
+                          //   label: "OLd Password",
+                          //   scure: _obscureText,
+                          //   controller: _passwordController,
+                          //   suffixIcn: IconButton(
+                          //     icon: Icon(_obscureText
+                          //         ? Icons.visibility_off
+                          //         : Icons.visibility),
+                          //     onPressed: () {
+                          //       togglePwVisiblity();
+                          //     },
+                          //     color: iconColor,
+                          //   ),
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return "Password is required";
+                          //     } else if (value.length < 6) {
+                          //       return "Password must be at least 6 characters";
+                          //     } else {
+                          //       // passStorage = value;
+                          //       // print(passStorage);
+                          //       return null;
+                          //     }
+                          //   },
+                          // ),
+                          // SizedBox(height: 24),
+                          // CustomInputfield(
+                          //   hint: "*********",
+                          //   label: "New Password",
+                          //   scure: _obscureTextConf,
+                          //   controller: _confPasswordController,
+                          //   suffixIcn: IconButton(
+                          //     icon: Icon(_obscureTextConf
+                          //         ? Icons.visibility_off
+                          //         : Icons.visibility),
+                          //     onPressed: () {
+                          //       toggleConfPwVisiblity();
+                          //     },
+                          //     color: iconColor,
+                          //   ),
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return "Confirm Password is required";
+                          //     } else if (value.length < 6) {
+                          //       return "Password must be at least 6 characters";
+                          //     } else {
+                          //       return null;
+                          //     }
+                          //   },
+                          // ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            height: 48,
+                            child:
+                             ElevatedButton(
+                              onPressed: (){
+                                Get.to(()=> NewPasswordScreen());
+
                               },
-                              color: iconColor,
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: inpBg,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      side: BorderSide(color: btnColor, width: 3)
+                                    )
+                                  ),
+                              child: CustomText(
+                                text: "Change Password",
+                                color: Colors.white,
+                                ftWeight: FontWeight.w600,
+                              ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Password is required";
-                              } else if (value.length < 6) {
-                                return "Password must be at least 6 characters";
-                              } else {
-                                // passStorage = value;
-                                // print(passStorage);
-                                return null;
-                              }
-                            },
-                          ),
-                          SizedBox(height: 24),
-                          CustomInputfield(
-                            hint: "*********",
-                            label: "New Password",
-                            scure: _obscureTextConf,
-                            controller: _confPasswordController,
-                            suffixIcn: IconButton(
-                              icon: Icon(_obscureTextConf
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                              onPressed: () {
-                                toggleConfPwVisiblity();
-                              },
-                              color: iconColor,
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Confirm Password is required";
-                              } else if (value.length < 6) {
-                                return "Password must be at least 6 characters";
-                              } else {
-                                return null;
-                              }
-                            },
                           ),
                           SizedBox(height: 24),
 
@@ -316,8 +339,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   updateUserData(
                                       _firstNameController.text,
                                       _lastNameController.text,
-                                      _passwordController.text,
-                                      _confPasswordController.text);
+                                      // _passwordController.text,
+                                      // _confPasswordController.text
+                                      );
                                   // Get.back();
                                   Get.off(() => HomeScreen());
 

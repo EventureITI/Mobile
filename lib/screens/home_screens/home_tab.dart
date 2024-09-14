@@ -9,34 +9,50 @@ import 'package:eventure/widgets/carousel_item.dart';
 import 'package:eventure/utils/text_colors.dart';
 import 'package:eventure/widgets/custom_text.dart';
 import 'package:eventure/widgets/event_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   HomeTab({super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
   final EventsController eventsController = Get.put(EventsController());
+
   final CategoriesController categoriesController =
       Get.put(CategoriesController());
+
   final UserController userController = Get.put(UserController());
+
   final UserController controller = UserController();
+
   final AuthService database = AuthService();
+  final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
 
-  // Future<void> fetchUserData(String? email) async {
-  //   Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
+ 
 
-  //   if (userData != null) {
-  //     print('User Data: $userData');
+  Future<void> fetchUserData(String? email) async {
+    Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
 
-  //     // String uFirstName =userData['first_name'] ;
-  //     // String ulastName = userData['last_name'];
+    if (userData != null) {
+      print('User Data: $userData');
 
-  //     userController.saveUserData(userData['firstName'], userData['lastName']);
-  //     // print("${userController.fName.value} ${userController.lName.value}");
-  //   } else {
-  //     print('No user found or error occurred.');
-  //   }
-  // }
+      // String uFirstName =userData['first_name'] ;
+      // String ulastName = userData['last_name'];
+
+      userController.saveUserData(userData['firstName'], userData['lastName']);
+      // print("${userController.fName.value} ${userController.lName.value}");
+    } else {
+      print('No user found or error occurred.');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,36 +99,40 @@ class HomeTab extends StatelessWidget {
                     Container(
                         height: 48,
                         color: bgColor,
-                        child: Obx(() => userController.signed.value == false
-                            ? Row(
-                                children: <Widget>[
-                                  SvgPicture.asset(
-                                    "assets/icons/avatar_placeholder.svg",
-                                  ),
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.to(() => LoginScreen());
-                                      },
-                                      child: CustomText(
-                                        text: "Login",
-                                        color: Colors.white,
-                                      ))
-                                ],
-                              )
-                            : Row(
-                                children: <Widget>[
-                                  SvgPicture.asset(
-                                    "assets/icons/avatar_placeholder.svg",
-                                  ),
-                                  CustomText(text: "${controller.fName.value}")
-                                ],
-                              ))
-                        // authUser == null ?
-
-                        //
-                        // :
-
-                        ),
+                        child: Obx(() {
+                          if(userController.signed.value == true){
+                            fetchUserData(userLoggedEmail);
+                            return  Row(
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  "assets/icons/avatar_placeholder.svg",
+                                ),
+                                SizedBox(width: 8,),
+                                CustomText(text: "Hello, ${userController.fName.value}".capitalize, color: Colors.white, size: 16,)
+                              ],
+                            );
+                          }
+                          else{
+                            return Row(
+                              children: <Widget>[
+                                SvgPicture.asset(
+                                  "images/carbon_user-avatar-filled.svg",
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Get.to(() => LoginScreen());
+                                  },
+                                  child: CustomText(
+                                    text: "Login",
+                                    color: Colors.white,
+                                  )
+                                )
+                              ],
+                            );                         
+                          }
+                        }      
+                      )
+                    ),
 
                     // banner
                     GestureDetector(
