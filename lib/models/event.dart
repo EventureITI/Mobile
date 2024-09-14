@@ -7,7 +7,7 @@ class Event {
   final String title;
   final String host;
   final String location;
-  final String price;
+  late String price;
   final String startTime;
   final String endTime;
   final String startDate;
@@ -82,5 +82,20 @@ class Event {
       eventDate: DateFormat('MMM dd').format(fetchedEventDate),
       fullEventDate: DateFormat('MMMM d, yyyy').format(fetchedEventDate),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'host': host,
+      'location': location,
+      'startTime': startTime,
+      'endTime': endTime,
+      'isDeleted': isDeleted,
+      'imgUrl': imgUrl,
+      'categoryId': categoryId,
+      'eventDate': eventDate
+    };
   }
 }

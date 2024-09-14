@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class EventsController extends GetxController {
   // Observable lists for events
+  RxList<Event> allEvents = <Event>[].obs;
   RxList<Event> eventsList = <Event>[].obs;
   RxList<Event> categorizedEvents = <Event>[].obs;
   RxList<Event> filteredEvents = <Event>[].obs;
@@ -20,7 +21,8 @@ class EventsController extends GetxController {
     try {
       var events = await FirestoreService().getEvents();
       if (events.isNotEmpty) {
-        // eventsList.assignAll(events);
+        allEvents.assignAll(events);
+
         // Filter events that are not deleted (isDeleted == false)
         eventsList.assignAll(
           events.where((event) => event.isDeleted == false).toList(),
@@ -37,10 +39,10 @@ class EventsController extends GetxController {
   // Filter events based on selected category (eventsList --> categorizedEvents)
   void categorizeEvents(String categoryId) {
     if (categoryId == 'all') {
-      categorizedEvents.assignAll(eventsList);
+      categorizedEvents.assignAll(eventsList!);
     } else {
       categorizedEvents.assignAll(
-        eventsList.where((event) => event.categoryId == categoryId).toList(),
+        eventsList!.where((event) => event.categoryId == categoryId).toList(),
       );
     }
     filterEvents();

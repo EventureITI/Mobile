@@ -35,7 +35,7 @@ class _ProfileTabState extends State<ProfileTab> {
     Map<String, dynamic>? userData = await database.getUserDataByEmail(email);
 
     if (userData != null) {
-      print('User Data: $userData');
+      // print('User Data: $userData');
 
       userController.saveUserData(userData['firstName'], userData['lastName']);
       // print("${controller.fName.value} ${controller.lName.value}");
