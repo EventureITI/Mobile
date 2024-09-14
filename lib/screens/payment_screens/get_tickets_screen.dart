@@ -2,6 +2,7 @@ import 'package:eventure/models/event.dart';
 import 'package:eventure/screens/payment_screens/fail_screen.dart';
 import 'package:eventure/screens/payment_screens/success_screen.dart';
 import 'package:eventure/services/auth_service.dart';
+import 'package:eventure/services/firestore_service.dart';
 import 'package:eventure/services/stripe_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,8 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
   int numberOfTickets = 1;
   late double totalPrice = double.parse(event.price);
   final userLoggedEmail = FirebaseAuth.instance.currentUser?.email;
-  final AuthService database = AuthService();
+  final AuthService userDB = AuthService();
+  final FirestoreService eventDB = FirestoreService();
 
   handlePaymentSuccess() async {
     Map<String, dynamic> eventDetails = {
@@ -29,8 +31,14 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
       "numberOfTickets": numberOfTickets,
       "totalPrice": totalPrice
     };
-    await database.addUserEventByEmail(userLoggedEmail, eventDetails);
 
+    // Add event to user profile
+    await userDB.addUserEventByEmail(userLoggedEmail, eventDetails);
+
+    // Decrease available tickets
+    await eventDB.decreaseAvailableTickets(event.id, numberOfTickets);
+
+    // Navigate to success
     Get.off(() => PaymentSuccessScreen());
   }
 
@@ -220,11 +228,24 @@ class _GetTicketScreenState extends State<GetTicketScreen> {
                 ),
               ),
               onPressed: () {
-                StripeService.instance.makePayment(
-                  totalPrice,
-                  handlePaymentSuccess,
-                  handlePaymentFailure,
-                );
+                if (numberOfTickets > int.parse(event.tickets) ||
+                    numberOfTickets > 10) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Something went wrong, please try again later",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                } else {
+                  StripeService.instance.makePayment(
+                    totalPrice,
+                    handlePaymentSuccess,
+                    handlePaymentFailure,
+                  );
+                }
               },
               child: Row(
                 mainAxisSize: MainAxisSize.min,

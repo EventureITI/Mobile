@@ -31,4 +31,24 @@ class FirestoreService {
       return [];
     }
   }
+
+  Future<void> decreaseAvailableTickets(
+      String eventId, int numberOfTicketsBought) async {
+    DocumentReference eventRef = _db.collection('events').doc(eventId);
+
+    DocumentSnapshot eventSnapshot = await eventRef.get();
+
+    if (eventSnapshot.exists) {
+      int currentTickets = int.parse(eventSnapshot.get('tickets'));
+      int updatedTickets = currentTickets - numberOfTicketsBought;
+      String ticketsToSend = updatedTickets.toString();
+      await eventRef.update({
+        'tickets': ticketsToSend,
+      });
+
+      print('Available tickets updated successfully');
+    } else {
+      print('Event not found');
+    }
+  }
 }
