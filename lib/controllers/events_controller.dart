@@ -21,6 +21,7 @@ class EventsController extends GetxController {
     try {
       var events = await FirestoreService().getEvents();
       if (events.isNotEmpty) {
+        events.sort((a, b) => a.eventDate.compareTo(b.eventDate));
         allEvents.assignAll(events);
 
         // Filter events that are not deleted (isDeleted == false)
